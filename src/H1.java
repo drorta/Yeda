@@ -82,10 +82,10 @@ public class H1 {
         if (count == 1) {
             return true;
         }
-        if (num % count == 0){
+        if (num % count == 0) {
             return false;
         }
-        return EX8PG26(num,count-1);
+        return EX8PG26(num, count - 1);
     }
 
     public static boolean EX9PG26(int num) {
