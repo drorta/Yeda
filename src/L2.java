@@ -68,8 +68,96 @@ public class L2 {
         seq6(n, count + 1, start + count, lol + 1);
     }
 
+    //second half
+
+    //param=0
+    public static int sumArrRec(int[] arr, int param) {
+        if (param == arr.length) {
+            return 0;
+        }
+        return arr[param] + sumArrRec(arr, param + 1);
+    }
+
+    //param=0
+    public static int countEvenArrRec(int[] arr, int param) {
+        if (param == arr.length) {
+            return 0;
+        }
+        if (arr[param] % 2 == 0) {
+            return 1 + countEvenArrRec(arr, param + 1);
+        }
+        return countEvenArrRec(arr, param + 1);
+    }
+
+    //param==0
+    public static boolean hasNumArr(int[] arr, int num, int param) {
+        if (param == arr.length) {
+            return false;
+        }
+        if (arr[param] == num) {
+            return true;
+        }
+        return hasNumArr(arr, num, param + 1);
+    }
+
+    //param=0
+    public static int maxValueArrRec(int[] arr, int param) {
+        if (param == arr.length) {
+            return 0;
+        }
+        return Math.max(arr[param], maxValueArrRec(arr, param + 1));
+    }
+
+    //param=0
+    public static void printModNum(int[] arr, int num, int param) {
+        if (param == arr.length) {
+            return;
+        }
+        if (arr[param] % num == 0) {
+            System.out.println(arr[param]);
+        }
+        printModNum(arr, num, param + 1);
+    }
+
+    //param=2
+    public static boolean isPrime(int num, int param) {
+        if (param == 0) {
+            param = 2;
+        }
+        if (param == num / 2) {
+            return true;
+        }
+        if (num % param == 0) {
+            return false;
+        }
+        return isPrime(num, param + 1);
+    }
+
+    //param=0
+    public static int firstPrime(int[] arr, int param) {
+        if (param == arr.length) {
+            return -1;
+        }
+        if (isPrime(arr[param], 0)) {
+            return arr[param];
+        }
+        return firstPrime(arr, param + 1);
+    }
+
+    public static int staircase(int x, int y) {
+        if (x == y) {
+            return 0;
+        }
+        if (y - x < x) {
+            return 1 + staircase(x + 1, y);
+        }
+        return 1 + staircase(x * 2, y);
+    }
+
     public static void main(String[] args) {
-        seq6(5, 1, 1, 1);
+        int[] a = {1, 5, 2, -3, 7, 14};
+
+        System.out.println(staircase(2, 15));
     }
 
 }
