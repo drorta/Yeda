@@ -60,7 +60,7 @@ public class H2 {
         if (i >= string.length() / 2) {
             return true;
         }
-        if (string.charAt(i) != string.charAt(string.length()-1 - i)) {
+        if (string.charAt(i) != string.charAt(string.length() - 1 - i)) {
             return false;
         }
         return pg34ex24(string, i + 1);
@@ -112,7 +112,7 @@ public class H2 {
 
     //תרגיל 30: כתוב להיעזר בפעולה בעמוד 24 אבל אין לי את הספר או תצלום של העמוד...
 
-    public static int pg35ex31(String string){
+    public static int pg35ex31(String string) {
         if (string.isEmpty()) {
             return 0;
         }
@@ -122,7 +122,7 @@ public class H2 {
         return pg35ex31(string.substring(1));
     }
 
-    public static boolean isAllBig(String string){
+    public static boolean isAllBig(String string) {
         if (string.isEmpty()) {
             return true;
         }
@@ -131,7 +131,8 @@ public class H2 {
         }
         return isAllBig(string.substring(1));
     }
-    public static boolean isAllSmall(String string){
+
+    public static boolean isAllSmall(String string) {
         if (string.isEmpty()) {
             return true;
         }
@@ -140,10 +141,12 @@ public class H2 {
         }
         return isAllSmall(string.substring(1));
     }
-    public static boolean pg35ex32(String string){
+
+    public static boolean pg35ex32(String string) {
         return isAllBig(string) || isAllSmall(string);
     }
 
-    public static void main(String[] args) {}
+    public static void main(String[] args) {
+    }
 
 }
