@@ -112,13 +112,6 @@ public class H2 {
 
     //תרגיל 30: כתוב להיעזר בפעולה בעמוד 24 אבל אין לי את הספר או תצלום של העמוד...
 
-//    function numberOfSmallChars(str) {
-//        if (str.length == 0) return 0;
-//        const c = str[0];
-//        const n = isSmall(c) ? 1 : 0:
-//        return n + numberOfSmallChars(str.slice(1));
-//    }
-
     public static int pg35ex31(String string){
         if (string.isEmpty()) {
             return 0;
