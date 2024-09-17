@@ -51,9 +51,37 @@ public class L3 {
 
  */
 
+    public static int biggerSum(int[] arr){
+        boolean iszero = false;
+        int sum = 0;
+        int maxSum = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == 0 && !iszero) {
+                iszero = true;
+                sum = 0;
+            }
+            if (arr[i] == 0 && iszero) {
+                if (sum > maxSum) {
+                    maxSum = sum;
+                }
+                sum = 0;
+            }
+            if (i == arr.length - 1 && arr[i] != 0) {
+                iszero = false;
+            }
+            if (iszero) {
+                sum += arr[i];
+                if (sum > maxSum) {
+                    maxSum = sum;
+                }
+            }
+        }
+        return maxSum;
+    }
 
     public static void main(String[] args) {
-        System.out.println(pg35ex34("abc"));
+        int[] arr = {33,0,5,4,0,17,0,4,10,0,5,14};
+        System.out.println(biggerSum(arr));
     }
 
 }
