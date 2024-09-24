@@ -52,9 +52,108 @@ public class L4 {
 
     //מחזירה את הערך המקסימלי במחסנית
     public static int maxValSt(Stack<Integer> st) {
-        int max;
-        while ()
+        int max = st.top();
+        Stack<Integer> temp = new Stack<Integer>();
+        while (!st.isEmpty()) {
+            if (Math.max(max, st.top()) == st.top()) {
+                max = st.top();
+            }
+            temp.push(st.pop());
+        }
+        while (!temp.isEmpty()) {
+            st.push(temp.pop());
+        }
+        return max;
     }
+
+    public static int minValSt(Stack<Integer> st) {
+        int min = st.top();
+        Stack<Integer> temp = new Stack<Integer>();
+
+        //O(n)
+        while (!st.isEmpty()) {
+            if (Math.min(min, st.top()) == st.top()) {
+                min = st.top();
+            }
+            temp.push(st.pop());
+        }
+
+        //O(n)
+        while (!temp.isEmpty()) {
+            if (temp.top() == min) {
+                temp.pop();
+            } else {
+                st.push(temp.pop());
+            }
+        }
+
+        return min;
+    }
+
+    public static Stack<Integer> copySt(Stack<Integer> st) {
+        Stack<Integer> temp = new Stack<Integer>();
+        Stack<Integer> copy = new Stack<Integer>();
+        while (!st.isEmpty()) {
+            temp.push(st.pop());
+        }
+        while (!temp.isEmpty()) {
+            st.push(temp.top());
+            copy.push(temp.pop());
+        }
+        return copy;
+    }
+
+    public static int stLen(Stack<Integer> st) {
+        int len = 0;
+        Stack<Integer> temp = new Stack<Integer>();
+        while (!st.isEmpty()) {
+            len++;
+            temp.push(st.pop());
+        }
+        while (!temp.isEmpty()) {
+            st.push(temp.pop());
+        }
+        return len;
+    }
+
+    public static boolean isSame(Stack<Integer> st1, Stack<Integer> st2) {
+//        Stack<Integer> temp1 = new Stack<Integer>();
+//        Stack<Integer> temp2 = new Stack<Integer>();
+        Stack<Integer> temp1 = copySt(st1);
+        Stack<Integer> temp2 = copySt(st2);
+        boolean isSame = true;
+        if (stLen(st1) != stLen(st2)) {
+            return false;
+        }
+        while (!temp1.isEmpty()) {
+            isSame = isSame && temp1.top() == temp2.top();
+            temp1.pop();
+            temp2.pop();
+        }
+        return isSame;
+    }
+
+    public static boolean isUp(Stack<Integer> st) {
+        Stack<Integer> temp = copySt(st);
+        int prev = temp.pop();
+        while (!temp.isEmpty()) {
+            if (temp.top() >= prev) {
+                return false;
+            }
+            else {
+                prev = temp.pop();
+            }
+        }
+        return true;
+    }
+
+    /*
+    שלבים לסיבוכיות:
+    1) O(n) סיבוכיות
+    2) n מייצג גודל מחסנית
+    3) מכיוון שהפעולה מעבירה את כל האיברים ממחסנית שנתונה למחסנית זמנית וחזרה
+
+     */
 
     public static void main(String[] args) {
 
@@ -115,13 +214,25 @@ public class L4 {
         exp.push(1);
         exp.push(2);
         exp.push(3);
+//        exp.push(1);
         exp.push(4);
         exp.push(5);
         exp.push(6);
         exp.push(7);
         exp.push(8);
         exp.push(9);
-
+        Stack<Integer> exp2 = new Stack<Integer>();
+        exp2.push(1);
+        exp2.push(2);
+        exp2.push(3);
+        exp2.push(1);
+        exp2.push(4);
+        exp2.push(5);
+        exp2.push(6);
+        exp2.push(7);
+        exp2.push(8);
+        exp2.push(9);
+        System.out.println(isUp(exp));
     }
 
 }
