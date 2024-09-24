@@ -1,4 +1,5 @@
 public class Stack<T> {
+
     private Node<T> first;
 
     public Stack() {
@@ -35,4 +36,5 @@ public class Stack<T> {
         str = str + "]";
         return str;
     }
+
 }
