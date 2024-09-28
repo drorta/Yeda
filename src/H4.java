@@ -92,18 +92,119 @@ public class H4 {
         return false;
     }
 
+//    public static int ex17A(Stack<Integer> st) {
+//        Stack<Integer> temp = new Stack<Integer>();
+//        int min = st.top();
+//        while (!st.isEmpty()) {
+//            temp.push(st.pop());
+//            if (!st.isEmpty()) {
+//                if (Math.min(min, st.top()) == st.top()) {
+//                    min = st.top();
+//                }
+//            }
+//        }
+//        while (!temp.isEmpty()) {
+//            st.push(temp.pop());
+//        }
+//        return min;
+//    }
+
+    public static int ex17A(Stack<Integer> st) {
+        if (st.isEmpty()) {
+            return Integer.MAX_VALUE;
+        }
+        int top = st.pop();
+        int min = ex17A(st);
+        st.push(top);
+        return Math.min(top, min);
+    }
+
+    public static void removeNum(Stack<Integer> st, int num) {
+        Stack<Integer> temp = new Stack<Integer>();
+        while (!st.isEmpty()) {
+            int popped = st.pop();
+            if (popped == num) {
+                num = Integer.MAX_VALUE;
+            } else {
+                temp.push(popped);
+            }
+        }
+        while (!temp.isEmpty()) {
+            st.push(temp.pop());
+        }
+    }
+
+    public static void ex17B(Stack<Integer> st) {
+        Stack<Integer> sorted = new Stack<Integer>();
+        int min;
+        while (!st.isEmpty()) {
+            min = ex17A(st);
+            sorted.push(min);
+            removeNum(st, min);
+        }
+        while (!sorted.isEmpty()) {
+            st.push(sorted.pop());
+        }
+    }
+
+    public static String ex18(String string) {
+        Stack<Character> temp = new Stack<Character>();
+        Stack<Character> finale = new Stack<Character>();
+        while (!string.isEmpty()) {
+            for (int i = 0; i < 5; i++) {
+                if (!string.isEmpty()) {
+                    temp.push(string.charAt(0));
+                    string = string.substring(1);
+                }
+            }
+            while (!temp.isEmpty()) {
+                finale.push(temp.pop());
+            }
+        }
+        while (!finale.isEmpty()) {
+            temp.push(finale.pop());
+        }
+        return temp.toString();
+    }
+
+    public static int ex19(Stack<Integer> st) {
+        int prev = st.top();
+        Stack<Integer> temp = new Stack<Integer>();
+        temp.push(st.pop());
+        int retzef = 0;
+        int maxRetzef = 0;
+        while (!st.isEmpty()) {
+            if (prev == st.top() + 1) {
+                retzef++;
+                if (retzef > maxRetzef) {
+                    maxRetzef = retzef;
+                }
+            } else {
+                retzef = 0;
+            }
+            prev = st.top();
+            temp.push(st.pop());
+        }
+        while (!temp.isEmpty()) {
+            st.push(temp.pop());
+        }
+        return maxRetzef;
+    }
+
     public static void main(String[] args) {
         Stack<Integer> exp = new Stack<Integer>();
         exp.push(1);
         exp.push(2);
-        exp.push(3);
+        exp.push(100);
         exp.push(4);
         exp.push(5);
-        exp.push(6);
-        exp.push(7);
-        exp.push(8);
+        exp.push(10);
+        exp.push(1);
+        exp.push(5);
         exp.push(9);
-        System.out.println(ex16(exp, 123));
+        System.out.println(exp);
+        ex17B(exp);
+        System.out.println(exp);
     }
 
 }
