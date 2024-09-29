@@ -1,5 +1,7 @@
 public class H4 {
 
+    //פעולות עזר
+
     public static Stack<Integer> copySt(Stack<Integer> st) {
         Stack<Integer> temp = new Stack<Integer>();
         Stack<Integer> copy = new Stack<Integer>();
@@ -12,6 +14,35 @@ public class H4 {
         }
         return copy;
     }
+
+    public static int stLen(Stack<Integer> st) {
+        int len = 0;
+        Stack<Integer> temp = new Stack<Integer>();
+        while (!st.isEmpty()) {
+            len++;
+            temp.push(st.pop());
+        }
+        while (!temp.isEmpty()) {
+            st.push(temp.pop());
+        }
+        return len;
+    }
+
+    public static boolean isSame(Stack<Integer> st1, Stack<Integer> st2) {
+        Stack<Integer> temp1 = copySt(st1);
+        Stack<Integer> temp2 = copySt(st2);
+        if (stLen(st1) != stLen(st2)) {
+            return false;
+        }
+        while (!temp1.isEmpty()) {
+            int a = temp1.pop();
+            int b = temp2.pop();
+            if (a != b) return false;
+        }
+        return true;
+    }
+
+    //
 
     public static boolean ex5(Stack<Integer> st) {
         Stack<Integer> temp = copySt(st);
@@ -54,7 +85,11 @@ public class H4 {
     }
 
     public static boolean ex8(Stack<Integer> st1, Stack<Integer> st2) {
-        return false;
+        Stack<Integer> temp1 = copySt(st1);
+        Stack<Integer> temp2 = copySt(st2);
+        ex17B(temp1);
+        ex17B(temp2);
+        return isSame(temp1,temp2);
     }
 
     public static boolean ex16(Stack<Integer> st, int num) {
@@ -195,16 +230,24 @@ public class H4 {
         Stack<Integer> exp = new Stack<Integer>();
         exp.push(1);
         exp.push(2);
-        exp.push(100);
+        exp.push(3);
         exp.push(4);
         exp.push(5);
-        exp.push(10);
-        exp.push(1);
-        exp.push(5);
+        exp.push(6);
+        exp.push(7);
+        exp.push(8);
         exp.push(9);
-        System.out.println(exp);
-        ex17B(exp);
-        System.out.println(exp);
+        Stack<Integer> exp2 = new Stack<Integer>();
+        exp2.push(9);
+        exp2.push(8);
+        exp2.push(7);
+        exp2.push(6);
+        exp2.push(5);
+        exp2.push(4);
+        exp2.push(1000);
+        exp2.push(2);
+        exp2.push(1);
+        System.out.println(ex8(exp,exp2));
     }
 
 }
