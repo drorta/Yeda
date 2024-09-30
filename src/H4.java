@@ -89,7 +89,7 @@ public class H4 {
         Stack<Integer> temp2 = copySt(st2);
         ex17B(temp1);
         ex17B(temp2);
-        return isSame(temp1,temp2);
+        return isSame(temp1, temp2);
     }
 
     public static boolean ex16(Stack<Integer> st, int num) {
@@ -126,23 +126,6 @@ public class H4 {
         }
         return false;
     }
-
-//    public static int ex17A(Stack<Integer> st) {
-//        Stack<Integer> temp = new Stack<Integer>();
-//        int min = st.top();
-//        while (!st.isEmpty()) {
-//            temp.push(st.pop());
-//            if (!st.isEmpty()) {
-//                if (Math.min(min, st.top()) == st.top()) {
-//                    min = st.top();
-//                }
-//            }
-//        }
-//        while (!temp.isEmpty()) {
-//            st.push(temp.pop());
-//        }
-//        return min;
-//    }
 
     public static int ex17A(Stack<Integer> st) {
         if (st.isEmpty()) {
@@ -227,27 +210,6 @@ public class H4 {
     }
 
     public static void main(String[] args) {
-        Stack<Integer> exp = new Stack<Integer>();
-        exp.push(1);
-        exp.push(2);
-        exp.push(3);
-        exp.push(4);
-        exp.push(5);
-        exp.push(6);
-        exp.push(7);
-        exp.push(8);
-        exp.push(9);
-        Stack<Integer> exp2 = new Stack<Integer>();
-        exp2.push(9);
-        exp2.push(8);
-        exp2.push(7);
-        exp2.push(6);
-        exp2.push(5);
-        exp2.push(4);
-        exp2.push(1000);
-        exp2.push(2);
-        exp2.push(1);
-        System.out.println(ex8(exp,exp2));
     }
 
 }
