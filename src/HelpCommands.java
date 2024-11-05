@@ -114,4 +114,18 @@ public class HelpCommands {
         }
     }
 
+    public static void removeAllX(Stack<Integer> stack, int x) {
+        Stack<Integer> temp = new Stack<Integer>();
+        while (!stack.isEmpty()) {
+            if (stack.top() == x) {
+                stack.pop();
+            } else {
+                temp.push(stack.pop());
+            }
+        }
+        while (!temp.isEmpty()) {
+            stack.push(temp.pop());
+        }
+    }
+
 }
