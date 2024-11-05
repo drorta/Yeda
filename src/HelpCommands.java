@@ -13,7 +13,7 @@ public class HelpCommands {
         return copy;
     }
 
-    public static boolean hasChar(Stack<Character> st, char c){
+    public static boolean hasChar(Stack<Character> st, char c) {
         Stack<Character> temp = new Stack<Character>();
         while (!st.isEmpty()) {
             if (st.top() == c) {
@@ -27,7 +27,7 @@ public class HelpCommands {
         return false;
     }
 
-    public static int numOfCharInSt(Stack<Character> st, char c){
+    public static int numOfCharInSt(Stack<Character> st, char c) {
         Stack<Character> temp = new Stack<Character>();
         int count = 0;
         while (!st.isEmpty()) {
@@ -46,7 +46,7 @@ public class HelpCommands {
         Stack<Character> temp = new Stack<Character>();
         while (!st.isEmpty()) {
             char popped = st.pop();
-            if (popped ==  c) {
+            if (popped == c) {
                 c = Character.MAX_VALUE;
             } else {
                 temp.push(popped);
