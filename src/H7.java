@@ -29,7 +29,7 @@ public class H7 {
         }
     }
 
-    public static Time subtractTime(Time time1, Time time2){
+    public static Time subtractTime(Time time1, Time time2) {
         return new Time(
                 Math.abs(time1.getHours() - time2.getHours()),
                 Math.abs(time1.getMinutes() - time2.getMinutes()),
@@ -65,8 +65,7 @@ public class H7 {
                 int tempy = queue.remove();
                 removeAllX(queue, tempy);
                 temp.insert(tempy);
-            }
-            else {
+            } else {
                 temp.insert(queue.remove());
             }
         }
@@ -75,14 +74,14 @@ public class H7 {
         }
     }
 
-    public static Time ex4A(Queue<Time> timeQueue){
+    public static Time ex4A(Queue<Time> timeQueue) {
         Time firstplace = timeQueue.head();
         Queue<Time> temp = new Queue<Time>();
         Time lastplace = new Time();
         while (!timeQueue.isEmpty()) {
             Time current = timeQueue.head();
             temp.insert(timeQueue.remove());
-            if (temp.isEmpty()){
+            if (temp.isEmpty()) {
                 lastplace = current;
             }
         }
@@ -92,30 +91,37 @@ public class H7 {
         return subtractTime(firstplace, lastplace);
     }
 
-    public static int[] ex4B(Queue<Time> timeQueue){
+    public static int[] ex4B(Queue<Time> timeQueue) {
         int minAOne;
         int minATwo;
         Time min = new Time();
         int counter = 3;
-        Queue<Time> temp = new Queue<Time>();
+        timeQueue.insert(new Time(Integer.MAX_VALUE, 0, 0));
         minAOne = 1;
         minATwo = 2;
         Time temp1 = timeQueue.head();
-        temp.insert(timeQueue.remove());
+        timeQueue.insert(timeQueue.remove());
         Time temp2 = timeQueue.head();
-        temp.insert(timeQueue.remove());
+        timeQueue.insert(timeQueue.remove());
         min = subtractTime(temp1, temp2);
-        while (!timeQueue.isEmpty()) {
-            Time temp1 = timeQueue.head();
-            temp.insert(timeQueue.remove());
-            if (!timeQueue.isEmpty()) {
-                Time temp2 = timeQueue.head();
-                if
+        while (timeQueue.head().getHours() != Integer.MAX_VALUE) {
+            temp1 = timeQueue.head();
+            timeQueue.insert(timeQueue.remove());
+            if (timeQueue.head().getHours() != Integer.MAX_VALUE) {
+                temp2 = timeQueue.head();
+                if (subtractTime(temp1, temp2).isSmallerThan(min)) {
+                    min = new Time(subtractTime(temp1, temp2));
+                    minAOne = counter;
+                    minATwo = counter + 1;
+                    counter++;
+                }
             }
         }
+        timeQueue.remove();
+        return new int[]{minAOne, minATwo};
     }
 
-    public static boolean ex5(Queue<Integer> queue, int n){
+    public static boolean ex5(Queue<Integer> queue, int n) {
         int temmoppp = 1;
         while (temmoppp <= n) {
             if (numOfAppearances(queue, temmoppp) != temmoppp) {
@@ -126,9 +132,9 @@ public class H7 {
         return true;
     }
 
-    public static boolean ex6(Queue<String> galil, int guess){
+    public static boolean ex6(Queue<String> galil, int guess) {
         int tempguess = guess;
-        while (tempguess > 0){
+        while (tempguess > 0) {
             if (galil.head() == "gold") {
                 return true;
             }

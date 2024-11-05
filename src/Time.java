@@ -18,6 +18,12 @@ public class Time {
         this.seconds = 0;
     }
 
+    public Time(Time other){
+        this.hours = other.hours;
+        this.minutes = other.minutes;
+        this.seconds = other.seconds;
+    }
+
     public int getHours() {
         return hours;
     }
