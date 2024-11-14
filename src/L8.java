@@ -120,13 +120,21 @@ public class L8 {
     }
 
     public static void main(String[] args) {
-        Queue<Domino> dominoQueue = buildDomino(5);
-        Queue<Domino> dominoQueue1 = buildDomino(5);
-        System.out.println("0:" + dominoQueue);
-        System.out.println("1:" + dominoQueue1);
-        hefresh(dominoQueue, dominoQueue1);
-        System.out.println("0:" + dominoQueue);
-        System.out.println("1:" + dominoQueue1);
+//        Queue<Domino> dominoQueue = buildDomino(5);
+//        Queue<Domino> dominoQueue1 = buildDomino(5);
+//        System.out.println("0:" + dominoQueue);
+//        System.out.println("1:" + dominoQueue1);
+//        hefresh(dominoQueue, dominoQueue1);
+//        System.out.println("0:" + dominoQueue);
+//        System.out.println("1:" + dominoQueue1);
+        System.out.println(ex53(1234569));
+    }
+
+    public static int ex53(int num){
+        if (num / 10 == 0) {
+            return num%10;
+        }
+        return ex53(HelpCommands.sumRec(num));
     }
 
 }

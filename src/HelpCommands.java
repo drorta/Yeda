@@ -57,6 +57,21 @@ public class HelpCommands {
         }
     }
 
+    public static void removeX(Stack<Integer> st, int x) {
+        Stack<Integer> temp = new Stack<Integer>();
+        while (!st.isEmpty()) {
+            int popped = st.pop();
+            if (popped == x) {
+                x = Integer.MAX_VALUE;
+            } else {
+                temp.push(popped);
+            }
+        }
+        while (!temp.isEmpty()) {
+            st.push(temp.pop());
+        }
+    }
+
 
     public static int stLen(Stack<Integer> st) {
         int len = 0;
@@ -114,6 +129,21 @@ public class HelpCommands {
         }
     }
 
+    public static int numOfAppearances(Stack<Integer> stack, int x) {
+        int counter = 0;
+        Stack<Integer> temp = new Stack<Integer>();
+        while (!stack.isEmpty()) {
+            if (stack.top() == x) {
+                counter++;
+            }
+            temp.push(stack.pop());
+        }
+        while (!temp.isEmpty()) {
+            stack.push(temp.pop());
+        }
+        return counter;
+    }
+
     public static void removeAllX(Stack<Integer> stack, int x) {
         Stack<Integer> temp = new Stack<Integer>();
         while (!stack.isEmpty()) {
@@ -126,6 +156,13 @@ public class HelpCommands {
         while (!temp.isEmpty()) {
             stack.push(temp.pop());
         }
+    }
+
+    public static int sumRec(int num) {
+        if (num / 10 == 0) {
+            return num;
+        }
+        return num % 10 + sumRec(num / 10);
     }
 
 }
