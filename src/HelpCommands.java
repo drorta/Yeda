@@ -1,9 +1,9 @@
 public class HelpCommands {
 
     /**
-     * @RuntimeComplexity O(n)
      * @param st The Stack you want to copy
      * @return A copy of the given Stack
+     * @RuntimeComplexity O(n)
      */
     public static Stack<Integer> copySt(Stack<Integer> st) {
         Stack<Integer> temp = new Stack<Integer>();
@@ -19,9 +19,8 @@ public class HelpCommands {
     }
 
     /**
-     *
      * @param st the stack to search
-     * @param c the char to search
+     * @param c  the char to search
      * @return if @param c exists within @param st
      * @RuntimeComplexity O(n)
      */
@@ -40,9 +39,8 @@ public class HelpCommands {
     }
 
     /**
-     *
      * @param st the stack to search
-     * @param c the char to search
+     * @param c  the char to search
      * @return the number of time @param c is withing @param st
      * @RuntimeComplexity O(n)
      */
@@ -63,8 +61,9 @@ public class HelpCommands {
 
     /**
      * Removes c from the given stack
+     *
      * @param st the stack to remove from
-     * @param c the char to remove
+     * @param c  the char to remove
      * @RuntimeComplexity O(n)
      */
     public static void removeChar(Stack<Character> st, char c) {
@@ -83,7 +82,6 @@ public class HelpCommands {
     }
 
     /**
-     *
      * @param st
      * @return the length of st
      * @RuntimeComplexity O(n)
@@ -102,7 +100,6 @@ public class HelpCommands {
     }
 
     /**
-     *
      * @param st1
      * @param st2
      * @return is st1 and st2 same
@@ -123,9 +120,8 @@ public class HelpCommands {
     }
 
     /**
-     *
      * @param queue the queue to search in
-     * @param x the value to search
+     * @param x     the value to search
      * @return the number of appearances x has in the given queue
      * @RuntimeComplexity O(n)
      */
@@ -146,8 +142,9 @@ public class HelpCommands {
 
     /**
      * Removes all x present inside the queue
+     *
      * @param queue the queue to remove from
-     * @param x the value to remove
+     * @param x     the value to remove
      * @RuntimeComplexity O(n)
      */
     public static void removeAllX(Queue<Integer> queue, int x) {
@@ -165,12 +162,11 @@ public class HelpCommands {
     }
 
     /**
-     *
      * @param queue the queue to search
      * @return the min value in the queue
      * @RuntimeComplexity O(n)
      */
-    public static int findMin(Queue<Integer> queue){
+    public static int findMin(Queue<Integer> queue) {
         int min = queue.head();
         queue.insert(Integer.MAX_VALUE);
         queue.insert(queue.remove());
@@ -186,8 +182,9 @@ public class HelpCommands {
 
     /**
      * Removes x from the queue
+     *
      * @param queue the queue to remove from
-     * @param x the num to remove
+     * @param x     the num to remove
      * @RuntimeComplexity O(n)
      */
     public static void removeXFromQ(Queue<Integer> queue, int x) {
@@ -207,10 +204,11 @@ public class HelpCommands {
 
     /**
      * Sorts the given queue
+     *
      * @param queue the queue to sort
-     * @RuntimeComplexity O(n^2)
+     * @RuntimeComplexity O(n ^ 2)
      */
-    public static void sortQueue(Queue<Integer> queue){
+    public static void sortQueue(Queue<Integer> queue) {
         Queue<Integer> temp = new Queue<Integer>();
         while (!queue.isEmpty()) {
             int min = findMin(queue);
@@ -220,6 +218,84 @@ public class HelpCommands {
         while (!temp.isEmpty()) {
             queue.insert(temp.remove());
         }
+    }
+
+    /**
+     * Prints a node and all nodes linked to it
+     *
+     * @param node the first node
+     */
+    public static void printNodes(Node<?> node) {
+        System.out.print("[");
+        while (node != null) {
+            System.out.print(node);
+            node = node.getNext();
+            if (node != null) {
+                System.out.print(", ");
+            }
+        }
+        System.out.print("]");
+        System.out.println();
+    }
+
+    /**
+     * @param n the number of nodes to be in the node
+     * @return a new chainlink of nodes
+     */
+    public static Node<Integer> buildNodes(int n) {
+        int x = (int) (Math.random() * 10);
+        Node<Integer> first = new Node<>(x);
+        Node<Integer> p = first;
+        for (int i = 0; i < n; i++) {
+            x = (int) (Math.random() * 10);
+            p.setNext(new Node<>(x));
+            p = p.getNext();
+        }
+        return first;
+    }
+
+    /**
+     * @param node the node
+     * @return The sum of a node and all nodes linked to it
+     */
+    public static int sumNodes(Node<Integer> node) {
+        int sum = 0;
+        while (node != null) {
+            sum += node.getValue();
+            node = node.getNext();
+        }
+        return sum;
+    }
+
+    public static boolean hasValue(Node<Integer> node, int value) {
+        boolean has = false;
+        while (node != null) {
+            if (node.getValue() == value) {
+                has = true;
+            }
+            node = node.getNext();
+        }
+        return has;
+    }
+
+    public static int countVal(Node<Integer> node, int value) {
+        int count = 0;
+        while (node != null) {
+            if (node.getValue() == value) {
+                count++;
+            }
+            node = node.getNext();
+        }
+        return count;
+    }
+
+    public static int findMin(Node<Integer> node) {
+        int min = node.getValue();
+        while (node != null) {
+            min = Math.min(min, node.getNext().getValue());
+            node = node.getNext();
+        }
+        return min;
     }
 
 }
