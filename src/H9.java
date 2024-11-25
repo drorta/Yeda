@@ -14,6 +14,7 @@ public class H9 extends HelpCommands {
         while (node != null) {
             if (node.getValue() == value) {
                 has = true;
+                break;
             }
             node = node.getNext();
         }
