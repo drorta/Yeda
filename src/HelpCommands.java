@@ -254,6 +254,10 @@ public class HelpCommands {
         return first;
     }
 
+    /**
+     * @param n the number of nodes to be in
+     * @return a new sorted node
+     */
     public static Node<Integer> buildSortNode(int n) {
         Node<Integer> ret = new Node<>(0);
         Node<Integer> p = ret;
@@ -277,6 +281,11 @@ public class HelpCommands {
         return sum;
     }
 
+    /**
+     * @param node  the node to search in
+     * @param value the value to search
+     * @return does value exist in the node
+     */
     public static boolean hasValue(Node<Integer> node, int value) {
         boolean has = false;
         while (node != null) {
@@ -288,6 +297,11 @@ public class HelpCommands {
         return has;
     }
 
+    /**
+     * @param node  the node to search in
+     * @param value the value to search
+     * @return the number of time value is in the node
+     */
     public static int countVal(Node<Integer> node, int value) {
         int count = 0;
         while (node != null) {
@@ -299,6 +313,10 @@ public class HelpCommands {
         return count;
     }
 
+    /**
+     * @param node the node to search in
+     * @return the min value in the node
+     */
     public static int findMin(Node<Integer> node) {
         int min = node.getValue();
         while (node != null) {
