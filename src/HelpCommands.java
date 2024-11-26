@@ -262,7 +262,7 @@ public class HelpCommands {
         Node<Integer> ret = new Node<>(0);
         Node<Integer> p = ret;
         for (int i = 0; i < n; i++) {
-            p.setNext(new Node<>(i + 1));
+            p.setNext(new Node<>(2*i + 1));
             p = p.getNext();
         }
         return ret;
@@ -324,6 +324,23 @@ public class HelpCommands {
             node = node.getNext();
         }
         return min;
+    }
+
+    public static void addValue(Node<Integer> node, int value){
+        while (node.getNext() != null) {
+            node = node.getNext();
+        }
+        node.setNext(new Node<>(value));
+    }
+
+    public static Node<Integer> copyNode(Node<Integer> fst){
+        Node<Integer> ret = new Node<>(fst.getValue());
+        fst = fst.getNext();
+        while (fst != null) {
+            addValue(ret, fst.getValue());
+            fst = fst.getNext();
+        }
+        return ret;
     }
 
 }
