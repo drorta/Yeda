@@ -45,7 +45,7 @@ public class L10 extends HelpCommands {
     public static void main(String[] args) {
         Node<Integer> exp = buildSortNode(5);
         printNodes(exp);
-        addTimes2(exp);
+        exp = removeAllX(exp, 3);
         printNodes(exp);
 
     }

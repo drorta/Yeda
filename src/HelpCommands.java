@@ -343,4 +343,18 @@ public class HelpCommands {
         return ret;
     }
 
+    public static Node<Integer> removeAllX(Node<Integer> node, int x){
+        while (node != null && node.getValue() == x) {
+            node = node.getNext();
+        }
+        Node<Integer> p = node;
+        while (p != null && p.getNext() != null) {
+            if (p.getNext().getValue() == x) {
+                p.getNext() = p.getNext().getNext();
+            } else {
+                p = p.getNext();
+            }
+        }
+    }
+
 }
