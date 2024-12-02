@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class HelpCommands {
 
     /**
@@ -324,6 +326,44 @@ public class HelpCommands {
             node = node.getNext();
         }
         return min;
+    }
+
+    public static int lenNodes(Node<Integer> node) {
+        int len = 0;
+        while (node != null) {
+            len++;
+            node = node.getNext();
+        }
+        return len;
+    }
+
+    public static Node<Integer> subNode(Node<Integer> node, int start, int end) {
+        for (int i = 1; i < start - 1; i++) {
+            node = node.getNext();
+        }
+        Node<Integer> subNode = node.getNext();
+        Node<Integer> temp = subNode;
+        for (int i = 1; i < end - 1; i++) {
+            temp = temp.getNext();
+        }
+        temp.setNext(null);
+        return subNode;
+    }
+
+    public static Node<Integer> sortNode(Node<Integer> node) {
+        int[] nodeValues = new int[lenNodes(node)];
+        for (int i = 0; i < nodeValues.length; i++) {
+            nodeValues[i] = node.getValue();
+            node = node.getNext();
+        }
+        nodeValues = Arrays.stream(nodeValues).sorted().toArray();
+        Node<Integer> sorted = new Node<>(nodeValues[0]);
+        Node<Integer> temp = sorted;
+        for (int i = 1; i < nodeValues.length; i++) {
+            temp.setNext(new Node<>(nodeValues[i]));
+            temp = temp.getNext();
+        }
+        return sorted;
     }
 
 }
