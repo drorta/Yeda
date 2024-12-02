@@ -328,6 +328,10 @@ public class HelpCommands {
         return min;
     }
 
+    /**
+     * @param node the node
+     * @return the length of the node
+     */
     public static int lenNodes(Node<Integer> node) {
         int len = 0;
         while (node != null) {
@@ -337,6 +341,12 @@ public class HelpCommands {
         return len;
     }
 
+    /**
+     * @param node  the node
+     * @param start start point
+     * @param end   end point
+     * @return a new node containing the numbers between indexes start,end in the node
+     */
     public static Node<Integer> subNode(Node<Integer> node, int start, int end) {
         for (int i = 1; i < start - 1; i++) {
             node = node.getNext();
@@ -350,6 +360,10 @@ public class HelpCommands {
         return subNode;
     }
 
+    /**
+     * @param node the node
+     * @return returns a sorted node from the numbers in the node
+     */
     public static Node<Integer> sortNode(Node<Integer> node) {
         int[] nodeValues = new int[lenNodes(node)];
         for (int i = 0; i < nodeValues.length; i++) {
