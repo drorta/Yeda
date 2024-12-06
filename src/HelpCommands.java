@@ -226,6 +226,7 @@ public class HelpCommands {
      * Prints a node and all nodes linked to it
      *
      * @param node the first node
+     * @RuntimeComplexity O(n)
      */
     public static void printNodes(Node<?> node) {
         System.out.print("[");
@@ -243,6 +244,7 @@ public class HelpCommands {
     /**
      * @param n the number of nodes to be in the node
      * @return a new chainlink of nodes
+     * @RuntimeComplexity O(param n)
      */
     public static Node<Integer> buildNodes(int n) {
         int x = (int) (Math.random() * 10);
@@ -259,6 +261,7 @@ public class HelpCommands {
     /**
      * @param n the number of nodes to be in
      * @return a new sorted node
+     * @RuntimeComplexity O(param n)
      */
     public static Node<Integer> buildSortNode(int n) {
         Node<Integer> ret = new Node<>(0);
@@ -273,6 +276,7 @@ public class HelpCommands {
     /**
      * @param node the node
      * @return The sum of a node and all nodes linked to it
+     * @RuntimeComplexity O(n)
      */
     public static int sumNodes(Node<Integer> node) {
         int sum = 0;
@@ -287,6 +291,7 @@ public class HelpCommands {
      * @param node  the node to search in
      * @param value the value to search
      * @return does value exist in the node
+     * @RuntimeComplexity O(n)
      */
     public static boolean hasValue(Node<Integer> node, int value) {
         boolean has = false;
@@ -303,6 +308,7 @@ public class HelpCommands {
      * @param node  the node to search in
      * @param value the value to search
      * @return the number of time value is in the node
+     * @RuntimeComplexity O(n)
      */
     public static int countVal(Node<Integer> node, int value) {
         int count = 0;
@@ -318,6 +324,7 @@ public class HelpCommands {
     /**
      * @param node the node to search in
      * @return the min value in the node
+     * @RuntimeComplexity O(n)
      */
     public static int findMin(Node<Integer> node) {
         int min = node.getValue();
@@ -329,8 +336,23 @@ public class HelpCommands {
     }
 
     /**
+     * @param node the node to search in
+     * @return the max value in the node
+     * @RuntimeComplexity O(n)
+     */
+    public static int findMax(Node<Integer> node) {
+        int max = node.getValue();
+        while (node.getNext() != null) {
+            max = Math.max(max, node.getNext().getValue());
+            node = node.getNext();
+        }
+        return max;
+    }
+
+    /**
      * @param node the node
      * @return the length of the node
+     * @RuntimeComplexity O(n)
      */
     public static int lenNodes(Node<Integer> node) {
         int len = 0;
@@ -346,6 +368,7 @@ public class HelpCommands {
      * @param start start point
      * @param end   end point
      * @return a new node containing the numbers between indexes start,end in the node
+     * @RuntimeComplexity O(n = start + ( end - start))
      */
     public static Node<Integer> subNode(Node<Integer> node, int start, int end) {
         for (int i = 1; i < start - 1; i++) {
@@ -363,6 +386,7 @@ public class HelpCommands {
     /**
      * @param node the node
      * @return returns a sorted node from the numbers in the node
+     * @RuntimeComplexity O(n)
      */
     public static Node<Integer> sortNode(Node<Integer> node) {
         int[] nodeValues = new int[lenNodes(node)];
@@ -378,6 +402,55 @@ public class HelpCommands {
             temp = temp.getNext();
         }
         return sorted;
+    }
+
+    /**
+     * @param node the node to sort
+     * @return a sorted node from the numbers in the node
+     * @RuntimeComplexity O(n ^ 2)
+     */
+    public static Node<Integer> sortNodeAllowed(Node<Integer> node) {
+        if (node == null) {
+            return null;
+        }
+        Node<Integer> sorted = new Node<>(0);
+        Node<Integer> p = sorted;
+        int firstmin = findMin(node);
+        for (int i = 0; i < countVal(node, firstmin); i++) {
+            p.setNext(new Node<>(firstmin));
+            p = p.getNext();
+        }
+        node = removeValue(node, firstmin);
+        for (int i = 0; i < lenNodes(node); i++) {
+            int min = findMin(node);
+            for (int j = 0; j < countVal(node, min); j++) {
+                p.setNext(new Node<>(min));
+                p = p.getNext();
+            }
+            node = removeValue(node, min);
+        }
+        return sorted;
+    }
+
+    /**
+     * @param node  the node
+     * @param value the value to remove
+     * @return the same node but without all the nodes with the param value
+     * @RuntimeComplexity O(n)
+     */
+    public static Node<Integer> removeValue(Node<Integer> node, int value) {
+        if (node.getValue() == value) {
+            node = node.getNext();
+        }
+        Node<Integer> p = node;
+        for (int i = 0; i < lenNodes(node); i++) {
+            if (p.getNext().getValue() == value) {
+                p.setNext(p.getNext().getNext());
+            } else {
+                p = p.getNext();
+            }
+        }
+        return node;
     }
 
 }
