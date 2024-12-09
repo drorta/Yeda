@@ -26,6 +26,21 @@ public class H11 extends HelpCommands {
         }
     }
 
+    public static Node<Integer> ex14pg91(Node<Integer> chain1, Node<Integer> chain2){
+        int removed = 0;
+        Node<Integer> p = chain1;
+        for (int i = 0; i < lenNodes(p); i++) {
+            for (int j = 0; j < lenNodes(chain2); j++) {
+                removed += countVal(p, chain2.getValue());
+                p = removeValue(p, chain2.getValue());
+                chain2 = chain2.getNext();
+            }
+            p = p.getNext();
+        }
+        p.setNext(new Node<>(removed));
+        return chain1;
+    }
+
     public static void main(String[] args) {
         Node<Integer> node = new Node<>(4);
         node.setNext(buildSortNode(10));
