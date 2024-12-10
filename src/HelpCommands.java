@@ -364,6 +364,20 @@ public class HelpCommands {
     }
 
     /**
+     * @param node the node
+     * @return the length of the node
+     * @RuntimeComplexity O(n)
+     */
+    public static int lenNodesChar(Node<Character> node) {
+        int len = 0;
+        while (node != null) {
+            len++;
+            node = node.getNext();
+        }
+        return len;
+    }
+
+    /**
      * @param node  the node
      * @param start start point
      * @param end   end point
@@ -451,6 +465,81 @@ public class HelpCommands {
             }
         }
         return node;
+    }
+
+    /**
+     * @param node  the node to search in
+     * @param value the value to search
+     * @return the number of time value is in the node
+     * @RuntimeComplexity O(n)
+     */
+    public static int countVal(Node<Character> node, char value) {
+        int count = 0;
+        while (node != null) {
+            if (node.getValue() == value) {
+                count++;
+            }
+            node = node.getNext();
+        }
+        return count;
+    }
+
+    public static Node<String> setFirst(Node<String> node, String value){
+        Node<String> ret = new Node<>(value);
+        ret.setNext(node);
+        return ret;
+    }
+
+    /**
+     *
+     * @param queue
+     * @return the sum
+     * @RuntimeComplexity O(A LOT)
+     */
+    public static int sumQRec(Queue<Integer> queue) {
+        Queue<Integer> copy = copyQueue(queue);
+        if (copy.isEmpty()) {
+            return 0;
+        }
+        return copy.remove() + sumQRec(copy);
+    }
+
+    /**
+     * NOTE: when running a recursive loop on a queue, it will always reverse itself, unless doing sum tricks
+     * @param queue
+     * @return the sum
+     */
+    public static int sumQRecButReverses(Queue<Integer> queue){
+        if (queue.isEmpty()) {
+            return 0;
+        }
+        else {
+            int x = queue.remove();
+            int sum = x + sumQRecButReverses(queue);
+            queue.insert(x);
+            return sum;
+        }
+    }
+
+    public static Queue<Integer> copyQueue(Queue<Integer> queue){
+        Queue<Integer> temp = new Queue<>();
+        while (!queue.isEmpty()) {
+            temp.insert(queue.remove());
+        }
+        Queue<Integer> copy = new Queue<>();
+        while (!temp.isEmpty()) {
+            copy.insert(temp.head());
+            queue.insert(temp.remove());
+        }
+        return copy;
+    }
+
+    public static Queue<Integer> buildQueue(int n, int max) {
+        Queue<Integer> queue = new Queue<>();
+        for (int i = 0; i < n; i++) {
+            queue.insert((int) (Math.random() * max));
+        }
+        return queue;
     }
 
 }
