@@ -171,7 +171,6 @@ public class HelpCommands {
     public static int findMin(Queue<Integer> queue) {
         int min = queue.head();
         queue.insert(Integer.MAX_VALUE);
-        queue.insert(queue.remove());
         while (queue.head() != Integer.MAX_VALUE) {
             if (queue.head() < min) {
                 min = queue.head();
@@ -484,6 +483,11 @@ public class HelpCommands {
         return count;
     }
 
+    /**
+     * @param node
+     * @param value
+     * @return returns a new node with first value being param value and the next is the given node
+     */
     public static Node<String> setFirst(Node<String> node, String value) {
         Node<String> ret = new Node<>(value);
         ret.setNext(node);
