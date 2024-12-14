@@ -258,6 +258,23 @@ public class HelpCommands {
     }
 
     /**
+     * @param n the number of nodes to be in the node
+     * @return a new chainlink of nodes
+     * @RuntimeComplexity O(param n)
+     */
+    public static Node<String> buildNodesString(int n) {
+        String x = String.valueOf ((int) (Math.random() * 10));
+        Node<String> first = new Node<>(x);
+        Node<String> p = first;
+        for (int i = 0; i < n; i++) {
+            x = String.valueOf ((int) (Math.random() * 10));
+            p.setNext(new Node<>(x));
+            p = p.getNext();
+        }
+        return first;
+    }
+
+    /**
      * @param n the number of nodes to be in
      * @return a new sorted node
      * @RuntimeComplexity O(param n)
@@ -377,6 +394,20 @@ public class HelpCommands {
     }
 
     /**
+     * @param node the node
+     * @return the length of the node
+     * @RuntimeComplexity O(n)
+     */
+    public static int lenNodesString(Node<String> node) {
+        int len = 0;
+        while (node != null) {
+            len++;
+            node = node.getNext();
+        }
+        return len;
+    }
+
+    /**
      * @param node  the node
      * @param start start point
      * @param end   end point
@@ -457,6 +488,27 @@ public class HelpCommands {
         }
         Node<Integer> p = node;
         for (int i = 0; i < lenNodes(node); i++) {
+            if (p.getNext().getValue() == value) {
+                p.setNext(p.getNext().getNext());
+            } else {
+                p = p.getNext();
+            }
+        }
+        return node;
+    }
+
+    /**
+     * @param node  the node
+     * @param value the value to remove
+     * @return the same node but without all the nodes with the param value
+     * @RuntimeComplexity O(n)
+     */
+    public static Node<Character> removeValueChar(Node<Character> node, int value) {
+        if (node.getValue() == value) {
+            node = node.getNext();
+        }
+        Node<Character> p = node;
+        for (int i = 0; i < lenNodesChar(node); i++) {
             if (p.getNext().getValue() == value) {
                 p.setNext(p.getNext().getNext());
             } else {
@@ -554,6 +606,39 @@ public class HelpCommands {
             queue.insert((int) (Math.random() * max));
         }
         return queue;
+    }
+
+    public static int getLastInteger(Node<Integer> node) {
+        int len = lenNodes(node);
+        for (int i = 0; i < len - 1; i++) {
+            node = node.getNext();
+        }
+        return node.getValue();
+    }
+
+    public static String getLastString(Node<String> node) {
+        int len = lenNodesString(node);
+        for (int i = 0; i < len - 1; i++) {
+            node = node.getNext();
+        }
+        return node.getValue();
+    }
+
+    public static void removeLastInt(Node<Integer> node) {
+        while (node.getNext().getNext() != null) {
+            node = node.getNext();
+        }
+        node.setNext(null);
+    }
+
+    public static Node<String> removeLastString(Node<String> node) {
+        if (node.getNext() != null) {
+            while (node.getNext().getNext() != null) {
+                node = node.getNext();
+            }
+            node.setNext(null);
+        }
+        return node;
     }
 
 }
