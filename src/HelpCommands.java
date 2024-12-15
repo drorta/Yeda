@@ -263,11 +263,11 @@ public class HelpCommands {
      * @RuntimeComplexity O(param n)
      */
     public static Node<String> buildNodesString(int n) {
-        String x = String.valueOf ((int) (Math.random() * 10));
+        String x = String.valueOf((int) (Math.random() * 10));
         Node<String> first = new Node<>(x);
         Node<String> p = first;
         for (int i = 0; i < n; i++) {
-            x = String.valueOf ((int) (Math.random() * 10));
+            x = String.valueOf((int) (Math.random() * 10));
             p.setNext(new Node<>(x));
             p = p.getNext();
         }
@@ -284,6 +284,21 @@ public class HelpCommands {
         Node<Integer> p = ret;
         for (int i = 0; i < n; i++) {
             p.setNext(new Node<>(i + 1));
+            p = p.getNext();
+        }
+        return ret;
+    }
+
+    /**
+     * @param n the number of nodes to be in
+     * @return a new sorted node
+     * @RuntimeComplexity O(param n)
+     */
+    public static Node<String> buildSortNodeString(int n) {
+        Node<String> ret = new Node<>("0");
+        Node<String> p = ret;
+        for (int i = 0; i < n; i++) {
+            p.setNext(new Node<>(String.valueOf(i + 1)));
             p = p.getNext();
         }
         return ret;
@@ -633,12 +648,14 @@ public class HelpCommands {
 
     public static Node<String> removeLastString(Node<String> node) {
         if (node.getNext() != null) {
-            while (node.getNext().getNext() != null) {
-                node = node.getNext();
+            Node<String> p = node;
+            while (p.getNext().getNext() != null) {
+                p = p.getNext();
             }
-            node.setNext(null);
+            p.setNext(null);
+            return node;
         }
-        return node;
+        return node.getNext();
     }
 
 }

@@ -43,7 +43,6 @@ public class H12 extends HelpCommands {
         return ex18Rec(node.getNext(), name);
     }
 
-    //FIXME infinite loop
     public static Node<String> ex20(Node<String> node) {
         Node<String> ret = new Node<>("0");
         Node<String> p = ret;
@@ -52,15 +51,15 @@ public class H12 extends HelpCommands {
             node = removeLastString(node);
             p = p.getNext();
         }
-        return ret;
+        return ret.getNext();
     }
 
     public static Node<String> ex21(Node<String> node) {
-        return null;
+
     }
 
     public static void main(String[] args) {
-        Node<String> exp = buildNodesString(10);
+        Node<String> exp = buildSortNodeString(9);
         printNodes(exp);
         printNodes(ex20(exp));
     }
