@@ -54,14 +54,41 @@ public class H12 extends HelpCommands {
         return ret.getNext();
     }
 
-    public static Node<String> ex21(Node<String> node) {
+    public static boolean abcFirst(String prev, String next) {
+        if (prev.length() > next.length()) {
+            for (int i = 0; i < prev.length(); i++) {
+                if (i >= next.length()) {
+                    return prev.charAt(i) <= next.charAt(next.length()-1);
+                }
+                if (prev.charAt(i) < next.charAt(i)) {
+                    return prev.charAt(i) <= next.charAt(i);
+                }
+            }
+        } else {
+            for (int i = 0; i < next.length(); i++) {
+                if (i >= prev.length()) {
+                    return prev.charAt(prev.length()-1) <= next.charAt(i);
+                }
+                if (prev.charAt(i) < next.charAt(i)) {
+                    return prev.charAt(i) <= next.charAt(i);
+                }
+            }
+        }
+        return true;
+    }
 
+    public static Node<String> ex21(Node<String> node) {
+        while (node.getNext() != null){
+            if (!abcFirst(node.getValue(), node.getNext().getValue())){
+                return new Node<>(node.getNext().getValue());
+            }
+            node = node.getNext();
+        }
+        return null;
     }
 
     public static void main(String[] args) {
-        Node<String> exp = buildSortNodeString(9);
-        printNodes(exp);
-        printNodes(ex20(exp));
+
     }
 
 }
