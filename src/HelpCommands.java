@@ -222,6 +222,68 @@ public class HelpCommands {
     }
 
     /**
+     * @param queue
+     * @return the sum
+     * @RuntimeComplexity O(A LOT)
+     */
+    public static int sumQRec(Queue<Integer> queue) {
+        Queue<Integer> copy = copyQueue(queue);
+        if (copy.isEmpty()) {
+            return 0;
+        }
+        return copy.remove() + sumQRec(copy);
+    }
+
+    /**
+     * NOTE: when running a recursive loop on a queue, it will always reverse itself, unless doing some tricks
+     *
+     * @param queue
+     * @return the sum
+     */
+    public static int sumQRecButReverses(Queue<Integer> queue) {
+        if (queue.isEmpty()) {
+            return 0;
+        } else {
+            int x = queue.remove();
+            int sum = x + sumQRecButReverses(queue);
+            queue.insert(x);
+            return sum;
+        }
+    }
+
+    /**
+     * @param queue
+     * @return a copy of the given queue
+     * @RuntimeComplexity O(n)
+     */
+    public static Queue<Integer> copyQueue(Queue<Integer> queue) {
+        Queue<Integer> temp = new Queue<>();
+        while (!queue.isEmpty()) {
+            temp.insert(queue.remove());
+        }
+        Queue<Integer> copy = new Queue<>();
+        while (!temp.isEmpty()) {
+            copy.insert(temp.head());
+            queue.insert(temp.remove());
+        }
+        return copy;
+    }
+
+    /**
+     * @param n
+     * @param max
+     * @return a new queue with n nodes and a max value of param max
+     * @RuntimeComplexity O(param n)
+     */
+    public static Queue<Integer> buildQueue(int n, int max) {
+        Queue<Integer> queue = new Queue<>();
+        for (int i = 0; i < n; i++) {
+            queue.insert((int) (Math.random() * max));
+        }
+        return queue;
+    }
+
+    /**
      * Prints a node and all nodes linked to it
      *
      * @param node the first node
@@ -492,68 +554,6 @@ public class HelpCommands {
         Node<String> ret = new Node<>(value);
         ret.setNext(node);
         return ret;
-    }
-
-    /**
-     * @param queue
-     * @return the sum
-     * @RuntimeComplexity O(A LOT)
-     */
-    public static int sumQRec(Queue<Integer> queue) {
-        Queue<Integer> copy = copyQueue(queue);
-        if (copy.isEmpty()) {
-            return 0;
-        }
-        return copy.remove() + sumQRec(copy);
-    }
-
-    /**
-     * NOTE: when running a recursive loop on a queue, it will always reverse itself, unless doing sum tricks
-     *
-     * @param queue
-     * @return the sum
-     */
-    public static int sumQRecButReverses(Queue<Integer> queue) {
-        if (queue.isEmpty()) {
-            return 0;
-        } else {
-            int x = queue.remove();
-            int sum = x + sumQRecButReverses(queue);
-            queue.insert(x);
-            return sum;
-        }
-    }
-
-    /**
-     * @param queue
-     * @return a copy of the given queue
-     * @RuntimeComplexity O(n)
-     */
-    public static Queue<Integer> copyQueue(Queue<Integer> queue) {
-        Queue<Integer> temp = new Queue<>();
-        while (!queue.isEmpty()) {
-            temp.insert(queue.remove());
-        }
-        Queue<Integer> copy = new Queue<>();
-        while (!temp.isEmpty()) {
-            copy.insert(temp.head());
-            queue.insert(temp.remove());
-        }
-        return copy;
-    }
-
-    /**
-     * @param n
-     * @param max
-     * @return a new queue with n nodes and a max value of param max
-     * @RuntimeComplexity O(param n)
-     */
-    public static Queue<Integer> buildQueue(int n, int max) {
-        Queue<Integer> queue = new Queue<>();
-        for (int i = 0; i < n; i++) {
-            queue.insert((int) (Math.random() * max));
-        }
-        return queue;
     }
 
 }
