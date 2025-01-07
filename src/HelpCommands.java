@@ -370,6 +370,16 @@ public class HelpCommands {
         return first;
     }
 
+    public static Node<Integer> buildNodes(int... numbers){
+        Node<Integer> ret = new Node<>(0);
+        Node<Integer> p = ret;
+        for (int i = 0; i < numbers.length; i++) {
+            p.setNext(new Node<>(numbers[i]));
+            p = p.getNext();
+        }
+        return ret.getNext();
+    }
+
     /**
      * @param n the number of nodes to be in
      * @return a new sorted node
