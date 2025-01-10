@@ -638,4 +638,18 @@ public class HelpCommands {
         return prev;
     }
 
+    public static <T> T valueAt(Node<T> node, int index) {
+        for (int i = 0; i < index; i++) {
+            node = node.getNext();
+        }
+        return node.getValue();
+    }
+
+    public static <T> Node<T> nodeAt(Node<T> node, int index) {
+        for (int i = 0; i < index; i++) {
+            node = node.getNext();
+        }
+        return node;
+    }
+
 }
