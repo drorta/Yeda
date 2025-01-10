@@ -638,4 +638,32 @@ public class HelpCommands {
         return prev;
     }
 
+    /**
+     * A generic function
+     * @param node the node to search
+     * @param index the index
+     * @return the value in the node in the given index
+     * @param <T> the Type of the node
+     */
+    public static <T> T valueAt(Node<T> node, int index) {
+        for (int i = 0; i < index; i++) {
+            node = node.getNext();
+        }
+        return node.getValue();
+    }
+
+    /**
+     * A generic function
+     * @param node the node to search
+     * @param index the index
+     * @return the node in the given index
+     * @param <T> the Type of the node
+     */
+    public static <T> Node<T> nodeAt(Node<T> node, int index) {
+        for (int i = 0; i < index; i++) {
+            node = node.getNext();
+        }
+        return node;
+    }
+
 }
