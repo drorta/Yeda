@@ -17,18 +17,18 @@ public class H15 extends HelpCommands {
             return 0;
         }
         if (lst1 == null) {
-            return 1 + ex46pg114(lst1, lst2.getNext());
+            return 1 + ex46pg114(null, lst2.getNext());
         }
         if (lst2 == null) {
-            return 1 + ex46pg114(lst1.getNext(), lst2);
+            return 1 + ex46pg114(lst1.getNext(), null);
         }
         return ex46pg114(lst1.getNext(), lst2.getNext());
     }
 
     public static int ex48pg115(Domino[] dominoBricks, Domino domino) {
         int counter = 0;
-        for (int i = 0; i < dominoBricks.length; i++) {
-            counter += domino.canBeNextTo(dominoBricks[i]) ? 1 : 0;
+        for (Domino dominoBrick : dominoBricks) {
+            counter += domino.canBeNextTo(dominoBrick) ? 1 : 0;
         }
         return counter;
     }
@@ -39,6 +39,7 @@ public class H15 extends HelpCommands {
             if (Arrays.stream(node.getValue()).max().getAsInt() - Arrays.stream(node.getValue()).min().getAsInt() <= 20) {
                 unevenLotteries++;
             }
+            node = node.getNext();
         }
         return unevenLotteries;
     }
