@@ -510,12 +510,12 @@ public class HelpCommands {
      * @return a new node containing the numbers between indexes start,end in the node
      * @RuntimeComplexity O(n = start + ( end - start))
      */
-    public static Node<Integer> subNode(Node<Integer> node, int start, int end) {
+    public static Node<?> subNode(Node<?> node, int start, int end) {
         for (int i = 1; i < start - 1; i++) {
             node = node.getNext();
         }
-        Node<Integer> subNode = node.getNext();
-        Node<Integer> temp = subNode;
+        Node<?> subNode = node.getNext();
+        Node<?> temp = subNode;
         for (int i = 1; i < end - 1; i++) {
             temp = temp.getNext();
         }
@@ -619,6 +619,23 @@ public class HelpCommands {
         Node<String> ret = new Node<>(value);
         ret.setNext(node);
         return ret;
+    }
+
+    /**
+     * @param fst the node to reverse
+     * @return a reversed form of the given node
+     */
+    public static Node<Integer> reverseNode(Node<Integer> fst) {
+        Node<Integer> prev = null;
+        Node<Integer> current = fst;
+        Node<Integer> next = null;
+        while (current != null) {
+            next = current.getNext();
+            current.setNext(prev);
+            prev = current;
+            current = next;
+        }
+        return prev;
     }
 
     /**
