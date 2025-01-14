@@ -283,6 +283,42 @@ public class HelpCommands {
         return queue;
     }
 
+    public static int lengthQueue(Queue<Integer> queue) {
+        int len = 0;
+        Queue<Integer> temp = new Queue<>();
+        while (!queue.isEmpty()) {
+            temp.insert(queue.remove());
+            len++;
+        }
+        while (!temp.isEmpty()) {
+            queue.insert(temp.remove());
+        }
+        return len;
+    }
+
+    public static Queue<Integer> flipQueue(Queue<Integer> queue) {
+        Queue<Integer> temp = new Queue<>();
+        Stack<Integer> stack = new Stack<>();
+        Queue<Integer> flip = new Queue<>();
+        while (!queue.isEmpty()) {
+            temp.insert(queue.head());
+            stack.push(queue.remove());
+        }
+        while (!temp.isEmpty()) {
+            queue.insert(temp.remove());
+            flip.insert(stack.pop());
+        }
+        return flip;
+    }
+
+    public static void flipQueueRec(Queue<Double> q1) {
+        if (!q1.isEmpty()) {
+            double x = q1.remove();
+            flipQueueRec(q1);
+            q1.insert(x);
+        }
+    }
+
     /**
      * @param queue
      * @return the length of the queue
