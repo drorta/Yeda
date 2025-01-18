@@ -287,9 +287,9 @@ public class HelpCommands {
      * @param queue
      * @return the length of the queue
      */
-    public static int lengthQueue(Queue<Integer> queue) {
+    public static <T> int lengthQueue(Queue<T> queue) {
         int len = 0;
-        Queue<Integer> temp = new Queue<>();
+        Queue<T> temp = new Queue<>();
         while (!queue.isEmpty()) {
             temp.insert(queue.remove());
             len++;
