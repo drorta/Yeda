@@ -615,10 +615,29 @@ public class HelpCommands {
      * @param value
      * @return returns a new node with first value being param value and the next is the given node
      */
-    public static Node<String> setFirst(Node<String> node, String value) {
-        Node<String> ret = new Node<>(value);
+    public static <T> Node<T> setFirst(Node<T> node, T value) {
+        Node<T> ret = new Node<>(value);
         ret.setNext(node);
         return ret;
+    }
+
+    public static <T> Node<T> setFirst(Node<T> node, Node<T> value) {
+        value.setNext(node);
+        return value;
+    }
+
+    public static <T> void setLast(Node<T> node, T value) {
+        while (node.getNext() != null) {
+            node = node.getNext();
+        }
+        node.setNext(new Node<>(value));
+    }
+
+    public static <T> void setLast(Node<T> node, Node<T> value) {
+        while (node.getNext() != null) {
+            node = node.getNext();
+        }
+        node.setNext(value);
     }
 
     /**
@@ -640,10 +659,11 @@ public class HelpCommands {
 
     /**
      * A generic function
-     * @param node the node to search
+     *
+     * @param node  the node to search
      * @param index the index
+     * @param <T>   the Type of the node
      * @return the value in the node in the given index
-     * @param <T> the Type of the node
      */
     public static <T> T valueAt(Node<T> node, int index) {
         for (int i = 0; i < index; i++) {
@@ -654,10 +674,11 @@ public class HelpCommands {
 
     /**
      * A generic function
-     * @param node the node to search
+     *
+     * @param node  the node to search
      * @param index the index
+     * @param <T>   the Type of the node
      * @return the node in the given index
-     * @param <T> the Type of the node
      */
     public static <T> Node<T> nodeAt(Node<T> node, int index) {
         for (int i = 0; i < index; i++) {
