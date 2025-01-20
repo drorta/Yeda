@@ -23,4 +23,23 @@ public class ReportDataBase {
         return sum;
     }
 
+    /**
+     *
+     * במקום רשימה אפשר להשתמש במערך
+     * @return pg118ex55C
+     */
+    public Node<Integer> findDriver(int offenceID){
+        Node<Integer> ret = new Node<>(-1);
+        Node<Integer> p = ret;
+        Node<Report> temp = reports;
+        while (temp != null){
+            if (temp.getValue().offenceID() == offenceID){
+                p.setNext(new Node<>(temp.getValue().carID()));
+                p = p.getNext();
+            }
+            temp = temp.getNext();
+        }
+        return ret.getNext();
+    }
+
 }

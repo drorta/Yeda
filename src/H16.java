@@ -15,6 +15,25 @@ public class H16 extends HelpCommands {
         return ret;
     }
 
+    public static int pg119ex56part2(Node<Student> students) {
+        double max = 0;
+        int maxCourse = 0;
+        Queue<Course> q;
+        while (students != null) {
+            q = students.getValue().courses;
+            q.insert(null);
+            while (q.head() != null) {
+                if (students.getValue().getScoreAverage() > max) {
+                    max = students.getValue().getScoreAverage();
+                    maxCourse = students.getValue().courses.head().courseID();
+                }
+                q.insert(q.remove());
+            }
+            students = students.getNext();
+        }
+        return maxCourse;
+    }
+
     public static void main(String[] args) {
 
     }
