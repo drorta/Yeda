@@ -668,4 +668,294 @@ public class HelpCommands {
         return node;
     }
 
+    public static BinNode<Integer> buildBinNode(int n) {
+        BinNode<Integer> root = new BinNode<Integer>((int) (Math.random() * 99) + 1);
+        BinNode<Integer> bn = root;
+        boolean flag = false;
+        int value = 0;
+        for (int i = 1; i <= n; i++) {
+            flag = false;
+            value = (int) (Math.random() * 99) + 1;
+            while (flag == false) {
+                int side = (int) (Math.random() * 2);
+                if (side == 0) {
+                    if (bn.getRight() == null) {
+                        bn.setRight(new BinNode<Integer>(value));
+                        flag = true;
+                    }
+                    bn = bn.getRight();
+                }
+                if (side == 1) {
+                    if (bn.getLeft() == null) {
+                        bn.setLeft(new BinNode<Integer>(value));
+                        flag = true;
+                    }
+                    bn = bn.getLeft();
+                }
+            }
+            bn = root;
+        }
+        return root;
+    }
+
+    public static void printMeTree(BinNode<Integer> root) {
+        int[][] im = arrowMat(root);
+        String[][] st1 = printMat(root);
+
+        for (int i = 0; i < st1.length; i++) {
+
+            for (int j = 0; j < st1[0].length; j++) {
+
+                if (im[i][j] == 4)
+                    st1[i][j] = "─┘ ";
+
+                if (im[i][j] == 5)
+                    st1[i][j] = " └─";
+
+                if (im[i][j] == 6)
+                    st1[i][j] = "─┴─";
+
+                if (im[i][j] == 7)
+                    st1[i][j] = "───";
+
+                if (st1[i][j] == null)
+                    st1[i][j] = "   ";
+
+                System.out.print(st1[i][j]);
+            }
+            System.out.println();
+        }
+    }
+
+    public static int[][] arrowMat(BinNode<Integer> root) {
+        BinNode<Integer> hz = copyCnstr(root);
+        BinNode<Integer> vr = copyCnstr(root);
+
+        hz.setValue((int) (Math.pow(2, hightTree(hz) - 1)));
+        vr.setValue(0);
+
+        int[][] arr = arrowMat(root, indexVr(vr), indexHz(hz),
+                new int[hightTree(root)][(int) (Math.pow(2, hightTree(root))) + 1]);
+
+        for (int i = 1; i < arr.length; i++) {
+
+            boolean flag = false;
+
+            for (int j = 0; j < arr[0].length; j++) {
+
+                if (arr[i][j] != 0 && flag == false) {
+                    flag = true;
+                    j++;
+                }
+                if (arr[i][j] != 0 && arr[i][j] != 6 && flag == true) {
+                    flag = false;
+
+                }
+
+                if (arr[i][j] == 0 && flag == true)
+                    arr[i][j] = 7;
+            }
+        }
+        return arr;
+    }
+
+    public static int[][] arrowMat(BinNode<Integer> root, BinNode<Integer> indexVr, BinNode<Integer> indexHz,
+                                   int[][] intM1) {
+        if (root != null) {
+            if (root.getLeft() != null || root.getRight() != null) {
+
+                if (root.getLeft() != null && root.getRight() != null) {
+                    intM1[indexVr.getValue()][indexHz.getValue()] = 3;
+
+                    if (indexVr.getValue() < intM1.length)
+                        intM1[indexVr.getValue() + 1][indexHz.getValue()] = 6;
+
+                    arrowMat(root.getLeft(), indexVr.getLeft(), indexHz.getLeft(), intM1);
+                    arrowMat(root.getRight(), indexVr.getRight(), indexHz.getRight(), intM1);
+
+                } else {
+                    if (root.getLeft() != null) {
+                        intM1[indexVr.getValue()][indexHz.getValue()] = 1;
+
+                        if (indexVr.getValue() < intM1.length)
+                            intM1[indexVr.getValue() + 1][indexHz.getValue()] = 4;
+
+                        arrowMat(root.getLeft(), indexVr.getLeft(), indexHz.getLeft(), intM1);
+                    }
+                    if (root.getRight() != null) {
+                        intM1[indexVr.getValue()][indexHz.getValue()] = 2;
+
+                        if (indexVr.getValue() < intM1.length)
+                            intM1[indexVr.getValue() + 1][indexHz.getValue()] = 5;
+
+                        arrowMat(root.getRight(), indexVr.getRight(), indexHz.getRight(), intM1);
+
+                    }
+                }
+            } else
+                intM1[indexVr.getValue()][indexHz.getValue()] = 9;
+        }
+        return intM1;
+    }
+
+    public static BinNode<Integer> copyCnstr(BinNode<Integer> root, BinNode<Integer> Root) {
+        if (root != null) {
+            if (root.getLeft() != null)
+                Root.setLeft(new BinNode<Integer>(root.getLeft().getValue()));
+
+            if (root.getRight() != null)
+                Root.setRight(new BinNode<Integer>(root.getRight().getValue()));
+
+            copyCnstr(root.getLeft(), Root.getLeft());
+            copyCnstr(root.getRight(), Root.getRight());
+
+        }
+        return Root;
+    }
+
+    public static BinNode<Integer> copyCnstr(BinNode<Integer> root) {
+        return copyCnstr(root, new BinNode<Integer>(root.getValue()));
+    }
+
+    public static String[][] printMat(BinNode<Integer> root, BinNode<Integer> indexVr, BinNode<Integer> indexHz,
+                                      String[][] st1) {
+        if (root != null) {
+            st1[indexVr.getValue()][indexHz.getValue()] = "(" + root.getValue() + ")";
+
+            if (root.getLeft() != null) {
+                printMat(root.getLeft(), indexVr.getLeft(), indexHz.getLeft(), st1);
+            }
+            if (root.getRight() != null) {
+                printMat(root.getRight(), indexVr.getRight(), indexHz.getRight(), st1);
+
+            }
+        }
+        return st1;
+    }
+
+    public static String[][] printMat(BinNode<Integer> root) {
+        BinNode<Integer> hz = copyCnstr(root);
+        BinNode<Integer> vr = copyCnstr(root);
+
+        hz.setValue((int) (Math.pow(2, hightTree(hz) - 1)));
+        vr.setValue(0);
+
+        return printMat(root, indexVr(vr), indexHz(hz),
+                new String[hightTree(root)][(int) (Math.pow(2, hightTree(root))) + 1]);
+
+    }
+
+    public static boolean isLeaf(BinNode<Integer> root) { // returns true if the node is a leaf
+        if (root == null)
+            return false;
+        if (root.getLeft() == null && root.getRight() == null)
+            return true;
+        else
+            return false;
+    }
+
+    public static int hightTree(BinNode<Integer> root) {
+        if (root == null)
+            return 0;
+        if (isLeaf(root))
+            return 1;
+        else
+            return (1 + Math.max(hightTree(root.getLeft()), hightTree(root.getRight())));
+    }
+
+    public static int nodeLevel(BinNode<Integer> t, int lev, int num) {
+        if (t.getValue() == num)
+            return lev;
+        if (t.hasLeft()) {
+            int left = nodeLevel(t.getLeft(), lev + 1, num);
+            if (lev != -1)
+                return lev;
+        }
+        if (t.hasRight()) {
+            int right = nodeLevel(t.getRight(), lev + 1, num);
+            if (lev != -1)
+                return lev;
+        }
+        return -1;
+    }
+
+    public static BinNode<Integer> indexHz(BinNode<Integer> index) {
+        // first must be index.setValue((int) (Math.pow(2, hightTree(index)-1)));
+        if (index != null) {
+
+            if (index.getLeft() != null)
+                index.getLeft().setValue(index.getValue() - ((int) (Math.pow(2, hightTree(index) - 2))));
+            if (index.getRight() != null)
+                index.getRight().setValue(index.getValue() + ((int) (Math.pow(2, hightTree(index) - 2))));
+
+            indexHz(index.getLeft());
+            indexHz(index.getRight());
+
+        }
+        return index;
+    }
+
+    public static BinNode<Integer> indexVr(BinNode<Integer> index) {
+        // first must be index.setValue(0);
+        if (index != null) {
+
+            if (index.getLeft() != null)
+                index.getLeft().setValue(index.getValue() + 1);
+            if (index.getRight() != null)
+                index.getRight().setValue(index.getValue() + 1);
+
+            indexVr(index.getLeft());
+            indexVr(index.getRight());
+
+        }
+        return index;
+    }
+
+    public static BinNode<Integer> buildTree(int n) {
+        int x = (int) (Math.random() * 21);
+        BinNode<Integer> root = new BinNode<>(x);
+        int side;
+        for (int i = 0; i < n - 1; i++) {
+            side = (int) (Math.random() * 2);
+            x = (int) (Math.random() * 21);
+            addNodeToTree(root, x, side);
+        }
+        return root;
+    }
+
+    public static void addNodeToTree(BinNode<Integer> root, int num, int side) { // adds a new leaf to the tree with value num to side ( 0 - left, 1- right)
+        if (side == 0 && root.getLeft() == null) {
+            root.setLeft(new BinNode<Integer>(num));
+            return;
+        }
+        if (side == 1 && root.getRight() == null) {
+            root.setRight(new BinNode<Integer>(num));
+            return;
+        }
+        if (side == 0 && root.getLeft() != null) {
+            side = (int) (Math.random() * 2);
+            addNodeToTree(root.getLeft(), num, side);
+        }
+        if (side == 1 && root.getRight() != null) {
+            side = (int) (Math.random() * 2);
+            addNodeToTree(root.getRight(), num, side);
+        }
+    }
+
+    public static void preOrder(BinNode<Integer> root) {
+        if (root != null) {
+            System.out.print(root.toString());
+            preOrder(root.getLeft());
+            preOrder(root.getRight());
+        }
+    }
+
+    public static void inOrder(BinNode<Integer> root) {
+        if (root != null) {
+            inOrder(root.getLeft());
+            System.out.print(root.toString());
+            inOrder(root.getRight());
+        }
+    }
+
 }
