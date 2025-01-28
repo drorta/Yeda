@@ -371,14 +371,14 @@ public class HelpCommands {
     }
 
     /**
-     * @param numbers the numbers to put in the node
-     * @return a new nodes with the given numbers in order
+     * @param values the values to put in the node
+     * @return a new nodes with the given values in order
      */
-    public static Node<Integer> buildNodes(int... numbers) {
-        Node<Integer> ret = new Node<>(0);
-        Node<Integer> p = ret;
-        for (int i = 0; i < numbers.length; i++) {
-            p.setNext(new Node<>(numbers[i]));
+    public static <T> Node<T> buildNodes(T... values) {
+        Node<T> ret = new Node<>(null);
+        Node<T> p = ret;
+        for (T value : values) {
+            p.setNext(new Node<>(value));
             p = p.getNext();
         }
         return ret.getNext();
@@ -480,7 +480,7 @@ public class HelpCommands {
      * @return the length of the node
      * @RuntimeComplexity O(n)
      */
-    public static int lenNodes(Node<Integer> node) {
+    public static <T> int lenNodes(Node<T> node) {
         int len = 0;
         while (node != null) {
             len++;
