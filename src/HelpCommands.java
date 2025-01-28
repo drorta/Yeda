@@ -419,7 +419,7 @@ public class HelpCommands {
      * @return does value exist in the node
      * @RuntimeComplexity O(n)
      */
-    public static boolean hasValue(Node<Integer> node, int value) {
+    public static <T> boolean hasValue(Node<T> node, T value) {
         boolean has = false;
         while (node != null) {
             if (node.getValue() == value) {
@@ -436,7 +436,7 @@ public class HelpCommands {
      * @return the number of time value is in the node
      * @RuntimeComplexity O(n)
      */
-    public static int countVal(Node<Integer> node, int value) {
+    public static int countValue(Node<Integer> node, int value) {
         int count = 0;
         while (node != null) {
             if (node.getValue() == value) {
@@ -556,14 +556,14 @@ public class HelpCommands {
         Node<Integer> sorted = new Node<>(0);
         Node<Integer> p = sorted;
         int firstmin = findMin(node);
-        for (int i = 0; i < countVal(node, firstmin); i++) {
+        for (int i = 0; i < countValue(node, firstmin); i++) {
             p.setNext(new Node<>(firstmin));
             p = p.getNext();
         }
         node = removeValue(node, firstmin);
         for (int i = 0; i < lenNodes(node); i++) {
             int min = findMin(node);
-            for (int j = 0; j < countVal(node, min); j++) {
+            for (int j = 0; j < countValue(node, min); j++) {
                 p.setNext(new Node<>(min));
                 p = p.getNext();
             }
@@ -599,7 +599,7 @@ public class HelpCommands {
      * @return the number of time value is in the node
      * @RuntimeComplexity O(n)
      */
-    public static int countVal(Node<Character> node, char value) {
+    public static int countValue(Node<Character> node, char value) {
         int count = 0;
         while (node != null) {
             if (node.getValue() == value) {
@@ -731,11 +731,11 @@ public class HelpCommands {
         BinNode<Integer> hz = copyCnstr(root);
         BinNode<Integer> vr = copyCnstr(root);
 
-        hz.setValue((int) (Math.pow(2, hightTree(hz) - 1)));
+        hz.setValue((int) (Math.pow(2, HelpCommands.getTreeHeight(hz) - 1)));
         vr.setValue(0);
 
         int[][] arr = arrowMat(root, indexVr(vr), indexHz(hz),
-                new int[hightTree(root)][(int) (Math.pow(2, hightTree(root))) + 1]);
+                new int[HelpCommands.getTreeHeight(root)][(int) (Math.pow(2, HelpCommands.getTreeHeight(root))) + 1]);
 
         for (int i = 1; i < arr.length; i++) {
 
@@ -837,15 +837,15 @@ public class HelpCommands {
         BinNode<Integer> hz = copyCnstr(root);
         BinNode<Integer> vr = copyCnstr(root);
 
-        hz.setValue((int) (Math.pow(2, hightTree(hz) - 1)));
+        hz.setValue((int) (Math.pow(2, HelpCommands.getTreeHeight(hz) - 1)));
         vr.setValue(0);
 
         return printMat(root, indexVr(vr), indexHz(hz),
-                new String[hightTree(root)][(int) (Math.pow(2, hightTree(root))) + 1]);
+                new String[HelpCommands.getTreeHeight(root)][(int) (Math.pow(2, HelpCommands.getTreeHeight(root))) + 1]);
 
     }
 
-    public static boolean isLeaf(BinNode<Integer> root) { // returns true if the node is a leaf
+    public static <T> boolean isLeaf(BinNode<T> root) { // returns true if the node is a leaf
         if (root == null)
             return false;
         if (root.getLeft() == null && root.getRight() == null)
@@ -854,13 +854,15 @@ public class HelpCommands {
             return false;
     }
 
-    public static int hightTree(BinNode<Integer> root) {
-        if (root == null)
+    public static <T> boolean hasTwoSons(BinNode<T> root){
+        return root.hasLeft() && root.hasRight();
+    }
+
+    public static <T> int getTreeHeight(BinNode<T> root){
+        if (root == null){
             return 0;
-        if (isLeaf(root))
-            return 1;
-        else
-            return (1 + Math.max(hightTree(root.getLeft()), hightTree(root.getRight())));
+        }
+        return 1 + Math.max(getTreeHeight(root.getRight()), getTreeHeight(root.getLeft()));
     }
 
     public static int nodeLevel(BinNode<Integer> t, int lev, int num) {
@@ -884,9 +886,9 @@ public class HelpCommands {
         if (index != null) {
 
             if (index.getLeft() != null)
-                index.getLeft().setValue(index.getValue() - ((int) (Math.pow(2, hightTree(index) - 2))));
+                index.getLeft().setValue(index.getValue() - ((int) (Math.pow(2, HelpCommands.getTreeHeight(index) - 2))));
             if (index.getRight() != null)
-                index.getRight().setValue(index.getValue() + ((int) (Math.pow(2, hightTree(index) - 2))));
+                index.getRight().setValue(index.getValue() + ((int) (Math.pow(2, HelpCommands.getTreeHeight(index) - 2))));
 
             indexHz(index.getLeft());
             indexHz(index.getRight());
@@ -942,21 +944,54 @@ public class HelpCommands {
         }
     }
 
-    public static void preOrder(BinNode<Integer> root) {
+    public static <T> void preOrder(BinNode<T> root) {
         if (root != null) {
-            System.out.print(root.toString());
+            System.out.print(root);
             preOrder(root.getLeft());
             preOrder(root.getRight());
         }
     }
 
-    public static void inOrder(BinNode<Integer> root) {
+    public static <T> void inOrder(BinNode<T> root) {
         if (root != null) {
             inOrder(root.getLeft());
-            System.out.print(root.toString());
+            System.out.print(root);
             inOrder(root.getRight());
         }
     }
 
+    /**
+     *
+     * @param root the tree root
+     * @param value the value to look for
+     * @return does the value exist in the tree
+     * @param <T> the type of the tree
+     */
+    public static <T> boolean hasValue(BinNode<T> root, T value){
+        if (root == null) {
+            return false;
+        }
+        if (root.getValue() == value) {
+            return true;
+        }
+        return hasValue(root.getRight(), value) || hasValue(root.getLeft(), value);
+    }
+
+    /**
+     *
+     * @param root the tree root
+     * @param value the value to look for
+     * @return the number of times the value is in the tree
+     * @param <T> the type of the tree
+     */
+    public static <T> int countValue(BinNode<T> root, T value){
+        if (root == null) {
+            return 0;
+        }
+        if (root.getValue() == value) {
+            return 1 + countValue(root.getRight(), value) + countValue(root.getLeft(), value);
+        }
+        return countValue(root.getRight(), value) + countValue(root.getLeft(), value);
+    }
 
 }
