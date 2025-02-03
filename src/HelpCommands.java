@@ -731,11 +731,11 @@ public class HelpCommands {
         BinNode<Integer> hz = copyCnstr(root);
         BinNode<Integer> vr = copyCnstr(root);
 
-        hz.setValue((int) (Math.pow(2, hightTree(hz) - 1)));
+        hz.setValue((int) (Math.pow(2, HelpCommands.getTreeHeight(hz) - 1)));
         vr.setValue(0);
 
         int[][] arr = arrowMat(root, indexVr(vr), indexHz(hz),
-                new int[hightTree(root)][(int) (Math.pow(2, hightTree(root))) + 1]);
+                new int[HelpCommands.getTreeHeight(root)][(int) (Math.pow(2, HelpCommands.getTreeHeight(root))) + 1]);
 
         for (int i = 1; i < arr.length; i++) {
 
@@ -837,11 +837,11 @@ public class HelpCommands {
         BinNode<Integer> hz = copyCnstr(root);
         BinNode<Integer> vr = copyCnstr(root);
 
-        hz.setValue((int) (Math.pow(2, hightTree(hz) - 1)));
+        hz.setValue((int) (Math.pow(2, HelpCommands.getTreeHeight(hz) - 1)));
         vr.setValue(0);
 
         return printMat(root, indexVr(vr), indexHz(hz),
-                new String[hightTree(root)][(int) (Math.pow(2, hightTree(root))) + 1]);
+                new String[HelpCommands.getTreeHeight(root)][(int) (Math.pow(2, HelpCommands.getTreeHeight(root))) + 1]);
 
     }
 
@@ -854,8 +854,8 @@ public class HelpCommands {
             return false;
     }
 
-    public static <T> int getTreeHeight(BinNode<T> root){
-        if (root == null){
+    public static <T> int getTreeHeight(BinNode<T> root) {
+        if (root == null) {
             return 0;
         }
         return 1 + Math.max(getTreeHeight(root.getRight()), getTreeHeight(root.getLeft()));
@@ -882,9 +882,9 @@ public class HelpCommands {
         if (index != null) {
 
             if (index.getLeft() != null)
-                index.getLeft().setValue(index.getValue() - ((int) (Math.pow(2, hightTree(index) - 2))));
+                index.getLeft().setValue(index.getValue() - ((int) (Math.pow(2, HelpCommands.getTreeHeight(index) - 2))));
             if (index.getRight() != null)
-                index.getRight().setValue(index.getValue() + ((int) (Math.pow(2, hightTree(index) - 2))));
+                index.getRight().setValue(index.getValue() + ((int) (Math.pow(2, HelpCommands.getTreeHeight(index) - 2))));
 
             indexHz(index.getLeft());
             indexHz(index.getRight());
