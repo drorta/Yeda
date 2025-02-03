@@ -854,13 +854,11 @@ public class HelpCommands {
             return false;
     }
 
-    public static int hightTree(BinNode<Integer> root) {
-        if (root == null)
+    public static <T> int getTreeHeight(BinNode<T> root){
+        if (root == null){
             return 0;
-        if (isLeaf(root))
-            return 1;
-        else
-            return (1 + Math.max(hightTree(root.getLeft()), hightTree(root.getRight())));
+        }
+        return 1 + Math.max(getTreeHeight(root.getRight()), getTreeHeight(root.getLeft()));
     }
 
     public static int nodeLevel(BinNode<Integer> t, int lev, int num) {
