@@ -956,7 +956,7 @@ public class HelpCommands {
         }
     }
 
-    public static <T> boolean hasValue(BinNode<T> root, T value){
+    public static <T> boolean hasValue(BinNode<T> root, T value) {
         if (root == null) {
             return false;
         }

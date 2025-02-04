@@ -34,8 +34,7 @@ public class L19 extends HelpCommands {
     public static boolean addNodes(BinNode<Integer> leaf) {
         if (isPrime(leaf.getValue())) {
             return false;
-        }
-        else {
+        } else {
             for (int i = 2; i <= leaf.getValue() / 2; i++) {
                 if (leaf.getValue() % i == 0) {
                     leaf.setRight(new BinNode<>(leaf.getValue() / i));
