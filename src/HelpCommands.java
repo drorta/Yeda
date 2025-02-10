@@ -419,7 +419,7 @@ public class HelpCommands {
      * @return does value exist in the node
      * @RuntimeComplexity O(n)
      */
-    public static boolean hasValue(Node<Integer> node, int value) {
+    public static <T> boolean hasValue(Node<T> node, T value) {
         boolean has = false;
         while (node != null) {
             if (node.getValue() == value) {
