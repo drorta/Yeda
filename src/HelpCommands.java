@@ -621,6 +621,13 @@ public class HelpCommands {
         return ret;
     }
 
+    public static <T> void setLast(Node<T> node, T value) {
+        while (node.getNext() != null) {
+            node = node.getNext();
+        }
+        node.setNext(new Node<>(value));
+    }
+
     /**
      * @param fst the node to reverse
      * @return a reversed form of the given node
