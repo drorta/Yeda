@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 public class HelpCommands {
 
     /**
@@ -413,13 +411,7 @@ public class HelpCommands {
         return sum;
     }
 
-    /**
-     * @param node  the node to search in
-     * @param value the value to search
-     * @return does value exist in the node
-     * @RuntimeComplexity O(n)
-     */
-    public static boolean hasValue(Node<Integer> node, int value) {
+    public static <T> boolean hasValue(Node<T> node, T value) {
         boolean has = false;
         while (node != null) {
             if (node.getValue() == value) {
@@ -430,13 +422,7 @@ public class HelpCommands {
         return has;
     }
 
-    /**
-     * @param node  the node to search in
-     * @param value the value to search
-     * @return the number of time value is in the node
-     * @RuntimeComplexity O(n)
-     */
-    public static int countVal(Node<Integer> node, int value) {
+    public static <T> int countVal(Node<T> node, T value) {
         int count = 0;
         while (node != null) {
             if (node.getValue() == value) {
@@ -447,11 +433,6 @@ public class HelpCommands {
         return count;
     }
 
-    /**
-     * @param node the node to search in
-     * @return the min value in the node
-     * @RuntimeComplexity O(n)
-     */
     public static int findMin(Node<Integer> node) {
         int min = node.getValue();
         while (node != null) {
@@ -461,11 +442,6 @@ public class HelpCommands {
         return min;
     }
 
-    /**
-     * @param node the node to search in
-     * @return the max value in the node
-     * @RuntimeComplexity O(n)
-     */
     public static int findMax(Node<Integer> node) {
         int max = node.getValue();
         while (node.getNext() != null) {
@@ -475,12 +451,7 @@ public class HelpCommands {
         return max;
     }
 
-    /**
-     * @param node the node
-     * @return the length of the node
-     * @RuntimeComplexity O(n)
-     */
-    public static int lenNodes(Node<Integer> node) {
+    public static <T> int lenNodes(Node<T> node) {
         int len = 0;
         while (node != null) {
             len++;
@@ -489,33 +460,12 @@ public class HelpCommands {
         return len;
     }
 
-    /**
-     * @param node the node
-     * @return the length of the node
-     * @RuntimeComplexity O(n)
-     */
-    public static int lenNodesChar(Node<Character> node) {
-        int len = 0;
-        while (node != null) {
-            len++;
-            node = node.getNext();
-        }
-        return len;
-    }
-
-    /**
-     * @param node  the node
-     * @param start start point
-     * @param end   end point
-     * @return a new node containing the numbers between indexes start,end in the node
-     * @RuntimeComplexity O(n = start + ( end - start))
-     */
-    public static Node<?> subNode(Node<?> node, int start, int end) {
+    public static <T> Node<T> subNode(Node<T> node, int start, int end) {
         for (int i = 1; i < start - 1; i++) {
             node = node.getNext();
         }
-        Node<?> subNode = node.getNext();
-        Node<?> temp = subNode;
+        Node<T> subNode = node.getNext();
+        Node<T> temp = subNode;
         for (int i = 1; i < end - 1; i++) {
             temp = temp.getNext();
         }
@@ -523,33 +473,7 @@ public class HelpCommands {
         return subNode;
     }
 
-    /**
-     * @param node the node
-     * @return returns a sorted node from the numbers in the node
-     * @RuntimeComplexity O(n)
-     */
     public static Node<Integer> sortNode(Node<Integer> node) {
-        int[] nodeValues = new int[lenNodes(node)];
-        for (int i = 0; i < nodeValues.length; i++) {
-            nodeValues[i] = node.getValue();
-            node = node.getNext();
-        }
-        nodeValues = Arrays.stream(nodeValues).sorted().toArray();
-        Node<Integer> sorted = new Node<>(nodeValues[0]);
-        Node<Integer> temp = sorted;
-        for (int i = 1; i < nodeValues.length; i++) {
-            temp.setNext(new Node<>(nodeValues[i]));
-            temp = temp.getNext();
-        }
-        return sorted;
-    }
-
-    /**
-     * @param node the node to sort
-     * @return a sorted node from the numbers in the node
-     * @RuntimeComplexity O(n ^ 2)
-     */
-    public static Node<Integer> sortNodeAllowed(Node<Integer> node) {
         if (node == null) {
             return null;
         }
@@ -572,17 +496,11 @@ public class HelpCommands {
         return sorted;
     }
 
-    /**
-     * @param node  the node
-     * @param value the value to remove
-     * @return the same node but without all the nodes with the param value
-     * @RuntimeComplexity O(n)
-     */
-    public static Node<Integer> removeValue(Node<Integer> node, int value) {
+    public static <T> Node<T> removeValue(Node<T> node, T value) {
         if (node.getValue() == value) {
             node = node.getNext();
         }
-        Node<Integer> p = node;
+        Node<T> p = node;
         for (int i = 0; i < lenNodes(node); i++) {
             if (p.getNext().getValue() == value) {
                 p.setNext(p.getNext().getNext());
@@ -593,42 +511,16 @@ public class HelpCommands {
         return node;
     }
 
-    /**
-     * @param node  the node to search in
-     * @param value the value to search
-     * @return the number of time value is in the node
-     * @RuntimeComplexity O(n)
-     */
-    public static int countVal(Node<Character> node, char value) {
-        int count = 0;
-        while (node != null) {
-            if (node.getValue() == value) {
-                count++;
-            }
-            node = node.getNext();
-        }
-        return count;
-    }
-
-    /**
-     * @param node
-     * @param value
-     * @return returns a new node with first value being param value and the next is the given node
-     */
-    public static Node<String> setFirst(Node<String> node, String value) {
-        Node<String> ret = new Node<>(value);
+    public static <T> Node<T> setFirst(Node<T> node, T value) {
+        Node<T> ret = new Node<>(value);
         ret.setNext(node);
         return ret;
     }
 
-    /**
-     * @param fst the node to reverse
-     * @return a reversed form of the given node
-     */
-    public static Node<Integer> reverseNode(Node<Integer> fst) {
-        Node<Integer> prev = null;
-        Node<Integer> current = fst;
-        Node<Integer> next = null;
+    public static <T> Node<T> reverseNode(Node<T> fst) {
+        Node<T> prev = null;
+        Node<T> current = fst;
+        Node<T> next = null;
         while (current != null) {
             next = current.getNext();
             current.setNext(prev);
@@ -638,14 +530,6 @@ public class HelpCommands {
         return prev;
     }
 
-    /**
-     * A generic function
-     *
-     * @param node  the node to search
-     * @param index the index
-     * @param <T>   the Type of the node
-     * @return the value in the node in the given index
-     */
     public static <T> T valueAt(Node<T> node, int index) {
         for (int i = 0; i < index; i++) {
             node = node.getNext();
@@ -653,14 +537,6 @@ public class HelpCommands {
         return node.getValue();
     }
 
-    /**
-     * A generic function
-     *
-     * @param node  the node to search
-     * @param index the index
-     * @param <T>   the Type of the node
-     * @return the node in the given index
-     */
     public static <T> Node<T> nodeAt(Node<T> node, int index) {
         for (int i = 0; i < index; i++) {
             node = node.getNext();
