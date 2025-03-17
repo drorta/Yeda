@@ -287,9 +287,9 @@ public class HelpCommands {
      * @param queue
      * @return the length of the queue
      */
-    public static int lengthQueue(Queue<Integer> queue) {
+    public static <T> int lengthQueue(Queue<T> queue) {
         int len = 0;
-        Queue<Integer> temp = new Queue<>();
+        Queue<T> temp = new Queue<>();
         while (!queue.isEmpty()) {
             temp.insert(queue.remove());
             len++;
@@ -615,10 +615,29 @@ public class HelpCommands {
      * @param value
      * @return returns a new node with first value being param value and the next is the given node
      */
-    public static Node<String> setFirst(Node<String> node, String value) {
-        Node<String> ret = new Node<>(value);
+    public static <T> Node<T> setFirst(Node<T> node, T value) {
+        Node<T> ret = new Node<>(value);
         ret.setNext(node);
         return ret;
+    }
+
+    public static <T> Node<T> setFirst(Node<T> node, Node<T> value) {
+        value.setNext(node);
+        return value;
+    }
+
+    public static <T> void setLast(Node<T> node, T value) {
+        while (node.getNext() != null) {
+            node = node.getNext();
+        }
+        node.setNext(new Node<>(value));
+    }
+
+    public static <T> void setLast(Node<T> node, Node<T> value) {
+        while (node.getNext() != null) {
+            node = node.getNext();
+        }
+        node.setNext(value);
     }
 
     /**
