@@ -1,3 +1,5 @@
+package utils;
+
 import java.util.Arrays;
 
 public class HelpCommands {
@@ -7,9 +9,9 @@ public class HelpCommands {
      * @return A copy of the given Stack
      * @RuntimeComplexity O(n)
      */
-    public static Stack<Integer> copySt(Stack<Integer> st) {
-        Stack<Integer> temp = new Stack<Integer>();
-        Stack<Integer> copy = new Stack<Integer>();
+    public static <T> Stack<T> copySt(Stack<T> st) {
+        Stack<T> temp = new Stack<>();
+        Stack<T> copy = new Stack<>();
         while (!st.isEmpty()) {
             temp.push(st.pop());
         }
@@ -22,14 +24,14 @@ public class HelpCommands {
 
     /**
      * @param st the stack to search
-     * @param c  the char to search
-     * @return if @param c exists within @param st
+     * @param value  the value to search
+     * @return if the value exists within st
      * @RuntimeComplexity O(n)
      */
-    public static boolean hasChar(Stack<Character> st, char c) {
-        Stack<Character> temp = new Stack<Character>();
+    public static <T> boolean hasValue(Stack<T> st, T value) {
+        Stack<T> temp = new Stack<>();
         while (!st.isEmpty()) {
-            if (st.top() == c) {
+            if (st.top() == value) {
                 return true;
             }
             temp.push(st.pop());
@@ -42,15 +44,15 @@ public class HelpCommands {
 
     /**
      * @param st the stack to search
-     * @param c  the char to search
-     * @return the number of time @param c is withing @param st
+     * @param value  the value to search
+     * @return the number of times the value is withing st
      * @RuntimeComplexity O(n)
      */
-    public static int numOfCharInSt(Stack<Character> st, char c) {
-        Stack<Character> temp = new Stack<Character>();
+    public static <T> int countVal(Stack<T> st, T value) {
+        Stack<T> temp = new Stack<>();
         int count = 0;
         while (!st.isEmpty()) {
-            if (st.top() == c) {
+            if (st.top() == value) {
                 count++;
             }
             temp.push(st.pop());
@@ -62,18 +64,18 @@ public class HelpCommands {
     }
 
     /**
-     * Removes c from the given stack
+     * Removes the value from the given stack
      *
      * @param st the stack to remove from
-     * @param c  the char to remove
+     * @param value  the value to remove
      * @RuntimeComplexity O(n)
      */
-    public static void removeChar(Stack<Character> st, char c) {
-        Stack<Character> temp = new Stack<Character>();
+    public static <T> void removeValue(Stack<T> st, T value) {
+        Stack<T> temp = new Stack<>();
         while (!st.isEmpty()) {
-            char popped = st.pop();
-            if (popped == c) {
-                c = Character.MAX_VALUE;
+            T popped = st.pop();
+            if (popped == value) {
+                value = null;
             } else {
                 temp.push(popped);
             }
@@ -88,9 +90,9 @@ public class HelpCommands {
      * @return the length of st
      * @RuntimeComplexity O(n)
      */
-    public static int stLen(Stack<Integer> st) {
+    public static <T> int stLen(Stack<T> st) {
         int len = 0;
-        Stack<Integer> temp = new Stack<Integer>();
+        Stack<T> temp = new Stack<>();
         while (!st.isEmpty()) {
             len++;
             temp.push(st.pop());
@@ -107,15 +109,15 @@ public class HelpCommands {
      * @return is st1 and st2 same
      * @RuntimeComplexity O(n)
      */
-    public static boolean isSame(Stack<Integer> st1, Stack<Integer> st2) {
-        Stack<Integer> temp1 = copySt(st1);
-        Stack<Integer> temp2 = copySt(st2);
+    public static <T> boolean isSame(Stack<T> st1, Stack<T> st2) {
+        Stack<T> temp1 = copySt(st1);
+        Stack<T> temp2 = copySt(st2);
         if (stLen(st1) != stLen(st2)) {
             return false;
         }
         while (!temp1.isEmpty()) {
-            int a = temp1.pop();
-            int b = temp2.pop();
+            T a = temp1.pop();
+            T b = temp2.pop();
             if (a != b) return false;
         }
         return true;
@@ -123,15 +125,15 @@ public class HelpCommands {
 
     /**
      * @param queue the queue to search in
-     * @param x     the value to search
-     * @return the number of appearances x has in the given queue
+     * @param value     the value to search
+     * @return the number of appearances value has in the given queue
      * @RuntimeComplexity O(n)
      */
-    public static int numOfAppearances(Queue<Integer> queue, int x) {
+    public static <T> int numOfAppearances(Queue<T> queue, T value) {
         int counter = 0;
-        Queue<Integer> temp = new Queue<Integer>();
+        Queue<T> temp = new Queue<>();
         while (!queue.isEmpty()) {
-            if (queue.head() == x) {
+            if (queue.head() == value) {
                 counter++;
             }
             temp.insert(queue.remove());
@@ -149,8 +151,8 @@ public class HelpCommands {
      * @param x     the value to remove
      * @RuntimeComplexity O(n)
      */
-    public static void removeAllX(Queue<Integer> queue, int x) {
-        Queue<Integer> temp = new Queue<Integer>();
+    public static <T> void removeAllX(Queue<T> queue, T x) {
+        Queue<T> temp = new Queue<>();
         while (!queue.isEmpty()) {
             if (queue.head() == x) {
                 queue.remove();
@@ -185,15 +187,15 @@ public class HelpCommands {
      * Removes x from the queue
      *
      * @param queue the queue to remove from
-     * @param x     the num to remove
+     * @param x     the value to remove
      * @RuntimeComplexity O(n)
      */
-    public static void removeXFromQ(Queue<Integer> queue, int x) {
-        Queue<Integer> temp = new Queue<Integer>();
+    public static <T> void removeXFromQ(Queue<T> queue, T x) {
+        Queue<T> temp = new Queue<>();
         while (!queue.isEmpty()) {
-            int popped = queue.remove();
+            T popped = queue.remove();
             if (popped == x) {
-                x = Integer.MAX_VALUE;
+                x = null;
             } else {
                 temp.insert(popped);
             }
@@ -256,12 +258,12 @@ public class HelpCommands {
      * @return a copy of the given queue
      * @RuntimeComplexity O(n)
      */
-    public static Queue<Integer> copyQueue(Queue<Integer> queue) {
-        Queue<Integer> temp = new Queue<>();
+    public static <T> Queue<T> copyQueue(Queue<T> queue) {
+        Queue<T> temp = new Queue<>();
         while (!queue.isEmpty()) {
             temp.insert(queue.remove());
         }
-        Queue<Integer> copy = new Queue<>();
+        Queue<T> copy = new Queue<>();
         while (!temp.isEmpty()) {
             copy.insert(temp.head());
             queue.insert(temp.remove());
@@ -287,9 +289,9 @@ public class HelpCommands {
      * @param queue
      * @return the length of the queue
      */
-    public static int lengthQueue(Queue<Integer> queue) {
+    public static <T> int lengthQueue(Queue<T> queue) {
         int len = 0;
-        Queue<Integer> temp = new Queue<>();
+        Queue<T> temp = new Queue<>();
         while (!queue.isEmpty()) {
             temp.insert(queue.remove());
             len++;
@@ -306,10 +308,10 @@ public class HelpCommands {
      * @param queue
      * @return the flipped queue
      */
-    public static Queue<Integer> flipQueue(Queue<Integer> queue) {
-        Queue<Integer> temp = new Queue<>();
-        Stack<Integer> stack = new Stack<>();
-        Queue<Integer> flip = new Queue<>();
+    public static <T> Queue<T> flipQueue(Queue<T> queue) {
+        Queue<T> temp = new Queue<>();
+        Stack<T> stack = new Stack<>();
+        Queue<T> flip = new Queue<>();
         while (!queue.isEmpty()) {
             temp.insert(queue.head());
             stack.push(queue.remove());
@@ -326,9 +328,9 @@ public class HelpCommands {
      *
      * @param q1
      */
-    public static void flipQueueRec(Queue<Double> q1) {
+    public static <T> void flipQueueRec(Queue<T> q1) {
         if (!q1.isEmpty()) {
-            double x = q1.remove();
+            T x = q1.remove();
             flipQueueRec(q1);
             q1.insert(x);
         }
@@ -340,7 +342,7 @@ public class HelpCommands {
      * @param node the first node
      * @RuntimeComplexity O(n)
      */
-    public static void printNodes(Node<?> node) {
+    public static <T> void printNodes(Node<T> node) {
         System.out.print("[");
         while (node != null) {
             System.out.print(node);
@@ -371,17 +373,17 @@ public class HelpCommands {
     }
 
     /**
-     * @param numbers the numbers to put in the node
-     * @return a new nodes with the given numbers in order
+     * @param values the values to put in the node
+     * @return a new nodes with the given values in order
      */
-    public static Node<Integer> buildNodes(int... numbers) {
-        Node<Integer> ret = new Node<>(0);
-        Node<Integer> p = ret;
-        for (int i = 0; i < numbers.length; i++) {
-            p.setNext(new Node<>(numbers[i]));
+    public static <T> Node<T> buildNodes(T... values) {
+        Node<T> ret = new Node<>(values[0]);
+        Node<T> p = ret;
+        for (int i = 1; i < values.length; i++) {
+            p.setNext(new Node<>(values[i]));
             p = p.getNext();
         }
-        return ret.getNext();
+        return ret;
     }
 
     /**
@@ -419,7 +421,7 @@ public class HelpCommands {
      * @return does value exist in the node
      * @RuntimeComplexity O(n)
      */
-    public static boolean hasValue(Node<Integer> node, int value) {
+    public static <T> boolean hasValue(Node<T> node, T value) {
         boolean has = false;
         while (node != null) {
             if (node.getValue() == value) {
@@ -436,7 +438,7 @@ public class HelpCommands {
      * @return the number of time value is in the node
      * @RuntimeComplexity O(n)
      */
-    public static int countVal(Node<Integer> node, int value) {
+    public static <T> int countVal(Node<T> node, T value) {
         int count = 0;
         while (node != null) {
             if (node.getValue() == value) {
@@ -480,21 +482,7 @@ public class HelpCommands {
      * @return the length of the node
      * @RuntimeComplexity O(n)
      */
-    public static int lenNodes(Node<Integer> node) {
-        int len = 0;
-        while (node != null) {
-            len++;
-            node = node.getNext();
-        }
-        return len;
-    }
-
-    /**
-     * @param node the node
-     * @return the length of the node
-     * @RuntimeComplexity O(n)
-     */
-    public static int lenNodesChar(Node<Character> node) {
+    public static <T> int lenNodes(Node<T> node) {
         int len = 0;
         while (node != null) {
             len++;
@@ -510,12 +498,12 @@ public class HelpCommands {
      * @return a new node containing the numbers between indexes start,end in the node
      * @RuntimeComplexity O(n = start + ( end - start))
      */
-    public static Node<?> subNode(Node<?> node, int start, int end) {
+    public static <T> Node<T> subNode(Node<T> node, int start, int end) {
         for (int i = 1; i < start - 1; i++) {
             node = node.getNext();
         }
-        Node<?> subNode = node.getNext();
-        Node<?> temp = subNode;
+        Node<T> subNode = node.getNext();
+        Node<T> temp = subNode;
         for (int i = 1; i < end - 1; i++) {
             temp = temp.getNext();
         }
@@ -578,11 +566,11 @@ public class HelpCommands {
      * @return the same node but without all the nodes with the param value
      * @RuntimeComplexity O(n)
      */
-    public static Node<Integer> removeValue(Node<Integer> node, int value) {
+    public static <T> Node<T> removeValue(Node<T> node, T value) {
         if (node.getValue() == value) {
             node = node.getNext();
         }
-        Node<Integer> p = node;
+        Node<T> p = node;
         for (int i = 0; i < lenNodes(node); i++) {
             if (p.getNext().getValue() == value) {
                 p.setNext(p.getNext().getNext());
@@ -594,29 +582,12 @@ public class HelpCommands {
     }
 
     /**
-     * @param node  the node to search in
-     * @param value the value to search
-     * @return the number of time value is in the node
-     * @RuntimeComplexity O(n)
-     */
-    public static int countVal(Node<Character> node, char value) {
-        int count = 0;
-        while (node != null) {
-            if (node.getValue() == value) {
-                count++;
-            }
-            node = node.getNext();
-        }
-        return count;
-    }
-
-    /**
      * @param node
      * @param value
      * @return returns a new node with first value being param value and the next is the given node
      */
-    public static Node<String> setFirst(Node<String> node, String value) {
-        Node<String> ret = new Node<>(value);
+    public static <T> Node<T> setFirst(Node<T> node, T value) {
+        Node<T> ret = new Node<>(value);
         ret.setNext(node);
         return ret;
     }
@@ -625,10 +596,10 @@ public class HelpCommands {
      * @param fst the node to reverse
      * @return a reversed form of the given node
      */
-    public static Node<Integer> reverseNode(Node<Integer> fst) {
-        Node<Integer> prev = null;
-        Node<Integer> current = fst;
-        Node<Integer> next = null;
+    public static <T> Node<T> reverseNode(Node<T> fst) {
+        Node<T> prev = null;
+        Node<T> current = fst;
+        Node<T> next = null;
         while (current != null) {
             next = current.getNext();
             current.setNext(prev);
@@ -666,6 +637,13 @@ public class HelpCommands {
             node = node.getNext();
         }
         return node;
+    }
+
+    public static <T> void addLast(Node<T> node, T value){
+        while (node.getNext() != null) {
+            node = node.getNext();
+        }
+        node.setValue(value);
     }
 
     public static BinNode<Integer> buildBinNode(int n) {
@@ -731,11 +709,11 @@ public class HelpCommands {
         BinNode<Integer> hz = copyCnstr(root);
         BinNode<Integer> vr = copyCnstr(root);
 
-        hz.setValue((int) (Math.pow(2, hightTree(hz) - 1)));
+        hz.setValue((int) (Math.pow(2, getTreeHeight(hz) - 1)));
         vr.setValue(0);
 
         int[][] arr = arrowMat(root, indexVr(vr), indexHz(hz),
-                new int[hightTree(root)][(int) (Math.pow(2, hightTree(root))) + 1]);
+                new int[getTreeHeight(root)][(int) (Math.pow(2, getTreeHeight(root))) + 1]);
 
         for (int i = 1; i < arr.length; i++) {
 
@@ -837,30 +815,27 @@ public class HelpCommands {
         BinNode<Integer> hz = copyCnstr(root);
         BinNode<Integer> vr = copyCnstr(root);
 
-        hz.setValue((int) (Math.pow(2, hightTree(hz) - 1)));
+        hz.setValue((int) (Math.pow(2, getTreeHeight(hz) - 1)));
         vr.setValue(0);
 
         return printMat(root, indexVr(vr), indexHz(hz),
-                new String[hightTree(root)][(int) (Math.pow(2, hightTree(root))) + 1]);
+                new String[getTreeHeight(root)][(int) (Math.pow(2, getTreeHeight(root))) + 1]);
 
     }
 
-    public static boolean isLeaf(BinNode<Integer> root) { // returns true if the node is a leaf
+    public static <T> boolean isLeaf(BinNode<T> root) { // returns true if the node is a leaf
         if (root == null)
             return false;
-        if (root.getLeft() == null && root.getRight() == null)
-            return true;
-        else
-            return false;
+        return root.getLeft() == null && root.getRight() == null;
     }
 
-    public static int hightTree(BinNode<Integer> root) {
+    public static <T> int getTreeHeight(BinNode<T> root) {
         if (root == null)
             return 0;
         if (isLeaf(root))
             return 1;
         else
-            return (1 + Math.max(hightTree(root.getLeft()), hightTree(root.getRight())));
+            return (1 + Math.max(getTreeHeight(root.getLeft()), getTreeHeight(root.getRight())));
     }
 
     public static int nodeLevel(BinNode<Integer> t, int lev, int num) {
@@ -884,9 +859,9 @@ public class HelpCommands {
         if (index != null) {
 
             if (index.getLeft() != null)
-                index.getLeft().setValue(index.getValue() - ((int) (Math.pow(2, hightTree(index) - 2))));
+                index.getLeft().setValue(index.getValue() - ((int) (Math.pow(2, getTreeHeight(index) - 2))));
             if (index.getRight() != null)
-                index.getRight().setValue(index.getValue() + ((int) (Math.pow(2, hightTree(index) - 2))));
+                index.getRight().setValue(index.getValue() + ((int) (Math.pow(2, getTreeHeight(index) - 2))));
 
             indexHz(index.getLeft());
             indexHz(index.getRight());
@@ -923,13 +898,23 @@ public class HelpCommands {
         return root;
     }
 
-    public static void addNodeToTree(BinNode<Integer> root, int num, int side) { // adds a new leaf to the tree with value num to side ( 0 - left, 1- right)
+    public static <T> BinNode<T> buildTree(T... values) {
+        BinNode<T> root = new BinNode<>(values[0]);
+        int side;
+        for (int i = 1; i < values.length - 1; i++) {
+            side = (int) (Math.random() * 2);
+            addNodeToTree(root, values[i], side);
+        }
+        return root;
+    }
+
+    public static <T> void addNodeToTree(BinNode<T> root, T num, int side) { // adds a new leaf to the tree with value num to side ( 0 - left, 1- right)
         if (side == 0 && root.getLeft() == null) {
-            root.setLeft(new BinNode<Integer>(num));
+            root.setLeft(new BinNode<>(num));
             return;
         }
         if (side == 1 && root.getRight() == null) {
-            root.setRight(new BinNode<Integer>(num));
+            root.setRight(new BinNode<>(num));
             return;
         }
         if (side == 0 && root.getLeft() != null) {
@@ -942,18 +927,18 @@ public class HelpCommands {
         }
     }
 
-    public static void preOrder(BinNode<Integer> root) {
+    public static <T> void preOrder(BinNode<T> root) {
         if (root != null) {
-            System.out.print(root.toString());
+            System.out.print(root);
             preOrder(root.getLeft());
             preOrder(root.getRight());
         }
     }
 
-    public static void inOrder(BinNode<Integer> root) {
+    public static <T> void inOrder(BinNode<T> root) {
         if (root != null) {
             inOrder(root.getLeft());
-            System.out.print(root.toString());
+            System.out.print(root);
             inOrder(root.getRight());
         }
     }
