@@ -1,5 +1,3 @@
-package utils;
-
 public class Stack<T> {
 
     private Node<T> first;
