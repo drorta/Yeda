@@ -1,5 +1,3 @@
-package utils;
-
 public class Node<T> {
 
     private T value;
