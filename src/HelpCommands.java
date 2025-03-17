@@ -371,17 +371,17 @@ public class HelpCommands {
     }
 
     /**
-     * @param numbers the numbers to put in the node
-     * @return a new nodes with the given numbers in order
+     * @param values the values to put in the node
+     * @return a new nodes with the given values in order
      */
-    public static Node<Integer> buildNodes(int... numbers) {
-        Node<Integer> ret = new Node<>(0);
-        Node<Integer> p = ret;
-        for (int i = 0; i < numbers.length; i++) {
-            p.setNext(new Node<>(numbers[i]));
+    public static <T> Node<T> buildNodes(T... values) {
+        Node<T> ret = new Node<>(values[0]);
+        Node<T> p = ret;
+        for (int i = 1; i < values.length; i++) {
+            p.setNext(new Node<>(values[i]));
             p = p.getNext();
         }
-        return ret.getNext();
+        return ret;
     }
 
     /**
@@ -666,6 +666,13 @@ public class HelpCommands {
             node = node.getNext();
         }
         return node;
+    }
+
+    public static <T> void addLast(Node<T> node, T value){
+        while (node.getNext() != null) {
+            node = node.getNext();
+        }
+        node.setValue(value);
     }
 
     public static BinNode<Integer> buildBinNode(int n) {
