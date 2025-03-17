@@ -419,7 +419,7 @@ public class HelpCommands {
      * @return does value exist in the node
      * @RuntimeComplexity O(n)
      */
-    public static boolean hasValue(Node<Integer> node, int value) {
+    public static <T> boolean hasValue(Node<T> node, T value) {
         boolean has = false;
         while (node != null) {
             if (node.getValue() == value) {
@@ -480,7 +480,7 @@ public class HelpCommands {
      * @return the length of the node
      * @RuntimeComplexity O(n)
      */
-    public static int lenNodes(Node<Integer> node) {
+    public static <T> int lenNodes(Node<T> node) {
         int len = 0;
         while (node != null) {
             len++;
@@ -510,12 +510,12 @@ public class HelpCommands {
      * @return a new node containing the numbers between indexes start,end in the node
      * @RuntimeComplexity O(n = start + ( end - start))
      */
-    public static Node<?> subNode(Node<?> node, int start, int end) {
+    public static <T> Node<T> subNode(Node<T> node, int start, int end) {
         for (int i = 1; i < start - 1; i++) {
             node = node.getNext();
         }
-        Node<?> subNode = node.getNext();
-        Node<?> temp = subNode;
+        Node<T> subNode = node.getNext();
+        Node<T> temp = subNode;
         for (int i = 1; i < end - 1; i++) {
             temp = temp.getNext();
         }
@@ -666,6 +666,20 @@ public class HelpCommands {
             node = node.getNext();
         }
         return node;
+    }
+
+    public static <T> boolean isSame(Node<T> firstNode, Node<T> secondNode){
+        if (lenNodes(firstNode) != lenNodes(secondNode)) {
+            return false;
+        }
+        while (firstNode != null) {
+            if (firstNode.getValue() != secondNode.getValue()) {
+                return false;
+            }
+            firstNode = firstNode.getNext();
+            secondNode = secondNode.getNext();
+        }
+        return true;
     }
 
     public static BinNode<Integer> buildBinNode(int n) {
@@ -923,22 +937,34 @@ public class HelpCommands {
         return root;
     }
 
-    public static void addNodeToTree(BinNode<Integer> root, int num, int side) { // adds a new leaf to the tree with value num to side ( 0 - left, 1- right)
+    public static <T> BinNode<T> buildTree(T... values) {
+        T value = values[0];
+        BinNode<T> root = new BinNode<>(value);
+        int side;
+        for (int i = 1; i < values.length; i++) {
+            side = (int) (Math.random() * 2);
+            value = values[i];
+            addNodeToTree(root, value, side);
+        }
+        return root;
+    }
+
+    public static <T> void addNodeToTree(BinNode<T> root, T value, int side) { // adds a new leaf to the tree with value num to side ( 0 - left, 1- right)
         if (side == 0 && root.getLeft() == null) {
-            root.setLeft(new BinNode<Integer>(num));
+            root.setLeft(new BinNode<>(value));
             return;
         }
         if (side == 1 && root.getRight() == null) {
-            root.setRight(new BinNode<Integer>(num));
+            root.setRight(new BinNode<>(value));
             return;
         }
         if (side == 0 && root.getLeft() != null) {
             side = (int) (Math.random() * 2);
-            addNodeToTree(root.getLeft(), num, side);
+            addNodeToTree(root.getLeft(), value, side);
         }
         if (side == 1 && root.getRight() != null) {
             side = (int) (Math.random() * 2);
-            addNodeToTree(root.getRight(), num, side);
+            addNodeToTree(root.getRight(), value, side);
         }
     }
 
@@ -958,5 +984,14 @@ public class HelpCommands {
         }
     }
 
+    public static <T> boolean hasValue(BinNode<T> root, T value) {
+        if (root == null) {
+            return false;
+        }
+        if (root.getValue() == value) {
+            return true;
+        }
+        return hasValue(root.getLeft(), value) || hasValue(root.getRight(), value);
+    }
 
 }
