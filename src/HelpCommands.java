@@ -287,9 +287,9 @@ public class HelpCommands {
      * @param queue
      * @return the length of the queue
      */
-    public static int lengthQueue(Queue<Integer> queue) {
+    public static <T> int lengthQueue(Queue<T> queue) {
         int len = 0;
-        Queue<Integer> temp = new Queue<>();
+        Queue<T> temp = new Queue<>();
         while (!queue.isEmpty()) {
             temp.insert(queue.remove());
             len++;
@@ -845,16 +845,14 @@ public class HelpCommands {
 
     }
 
-    public static boolean isLeaf(BinNode<Integer> root) { // returns true if the node is a leaf
-        if (root == null)
+    public static <T> boolean isLeaf(BinNode<T> root) { // returns true if the node is a leaf
+        if (root == null) {
             return false;
-        if (root.getLeft() == null && root.getRight() == null)
-            return true;
-        else
-            return false;
+        }
+        return root.getLeft() == null && root.getRight() == null;
     }
 
-    public static int hightTree(BinNode<Integer> root) {
+    public static <T> int hightTree(BinNode<T> root) {
         if (root == null)
             return 0;
         if (isLeaf(root))
