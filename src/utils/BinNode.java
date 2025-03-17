@@ -1,3 +1,5 @@
+package utils;
+
 public class BinNode<T> {
     private T value;
     private BinNode<T> left;
