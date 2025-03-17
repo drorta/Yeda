@@ -1,3 +1,5 @@
+package utils;
+
 public class Queue<T>
 {
     private Node<T> first;
