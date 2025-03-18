@@ -32,7 +32,16 @@ public class Node<T> {
     }
 
     public String toString() {
-        return "" + value;
+        String str = "[";
+        Node<T> pos = this;
+        while (pos != null) {
+            str = str + pos.getValue().toString();
+            if (pos.getNext() != null)
+                str = str + " , ";
+            pos = pos.getNext();
+        }
+        str = str + "]";
+        return str;
     }
 
 }
