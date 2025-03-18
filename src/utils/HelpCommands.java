@@ -499,7 +499,7 @@ public class HelpCommands {
      * @RuntimeComplexity O(n = start + ( end - start))
      */
     public static <T> Node<T> subNode(Node<T> node, int start, int end) {
-        for (int i = 1; i < start - 1; i++) {
+        for (int i = 1; i < start; i++) {
             node = node.getNext();
         }
         Node<T> subNode = node.getNext();
