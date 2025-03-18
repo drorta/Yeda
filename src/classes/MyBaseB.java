@@ -8,7 +8,7 @@ public class MyBaseB {
     private Node<Integer> first;
     private Node<Integer> last;
 
-    private boolean div7;
+    private int div7;
 
     public MyBaseB() {
         this.first = null;
@@ -16,7 +16,7 @@ public class MyBaseB {
 
     public void insert(int x) {
         if (x % 7 == 0) {
-            div7 = true;
+            div7++;
         }
         if (first == null) {
             this.first = new Node<>(x);
@@ -38,11 +38,14 @@ public class MyBaseB {
     public int getMax() {
         int max = first.getValue();
         this.first = first.getNext();
+        if (max % 7 == 0) {
+            div7--;
+        }
         return max;
     }
 
     public boolean div7(){
-        return div7;
+        return div7 > 0;
     }
 
     public String toString() {
