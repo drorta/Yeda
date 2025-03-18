@@ -23,8 +23,8 @@ public class HelpCommands {
     }
 
     /**
-     * @param st the stack to search
-     * @param value  the value to search
+     * @param st    the stack to search
+     * @param value the value to search
      * @return if the value exists within st
      * @RuntimeComplexity O(n)
      */
@@ -43,8 +43,8 @@ public class HelpCommands {
     }
 
     /**
-     * @param st the stack to search
-     * @param value  the value to search
+     * @param st    the stack to search
+     * @param value the value to search
      * @return the number of times the value is withing st
      * @RuntimeComplexity O(n)
      */
@@ -66,8 +66,8 @@ public class HelpCommands {
     /**
      * Removes the value from the given stack
      *
-     * @param st the stack to remove from
-     * @param value  the value to remove
+     * @param st    the stack to remove from
+     * @param value the value to remove
      * @RuntimeComplexity O(n)
      */
     public static <T> void removeValue(Stack<T> st, T value) {
@@ -125,7 +125,7 @@ public class HelpCommands {
 
     /**
      * @param queue the queue to search in
-     * @param value     the value to search
+     * @param value the value to search
      * @return the number of appearances value has in the given queue
      * @RuntimeComplexity O(n)
      */
@@ -639,7 +639,7 @@ public class HelpCommands {
         return node;
     }
 
-    public static <T> void addLast(Node<T> node, T value){
+    public static <T> void addLast(Node<T> node, T value) {
         while (node.getNext() != null) {
             node = node.getNext();
         }
