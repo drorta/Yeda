@@ -1,15 +1,34 @@
-import classes.Card;
-import utils.Node;
+import utils.BinNode;
 
 public class L24 extends Main {
 
-    public static void fixCardsByNum(Node<Card> node){}
+    public static void printAll(BinNode<Integer> root) {
+        printAll(root, 0);
+    }
+
+    public static void printAll(BinNode<Integer> root, int n){
+        if (root != null) {
+            if (isLeaf(root)) {
+                System.out.println(root.getValue() + n * 10);
+            } else {
+                n = n*10 + root.getValue();
+                if (root.hasLeft()) {
+                    printAll(root.getLeft(), n);
+                }
+                if (root.hasRight()) {
+                    printAll(root.getRight(), n);
+                }
+            }
+        }
+    }
+
 
 
     public static void main(String[] args) {
-        Node<Integer> node = buildNodes(0,1,2,3,4,5,6);
-        System.out.println(node);
-        System.out.println(subNode(node, 2, 4));
+        BinNode<Integer> root = buildTree(10);
+        printMeTree(root);
+        printAll(root);
+
     }
 
 }
