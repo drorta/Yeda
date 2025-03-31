@@ -271,16 +271,24 @@ public class HelpCommands {
         return copy;
     }
 
-    /**
-     * @param n
-     * @param max
-     * @return a new queue with n nodes and a max value of param max
-     * @RuntimeComplexity O(param n)
-     */
-    public static Queue<Integer> buildQueue(int n, int max) {
-        Queue<Integer> queue = new Queue<>();
-        for (int i = 0; i < n; i++) {
-            queue.insert((int) (Math.random() * max));
+//    /**
+//     * @param n
+//     * @param max
+//     * @return a new queue with n nodes and a max value of param max
+//     * @RuntimeComplexity O(param n)
+//     */
+//    public static Queue<Integer> buildQueue(int n, int max) {
+//        Queue<Integer> queue = new Queue<>();
+//        for (int i = 0; i < n; i++) {
+//            queue.insert((int) (Math.random() * max));
+//        }
+//        return queue;
+//    }
+
+    public static <T> Queue<T> buildQueue(T... values) {
+        Queue<T> queue = new Queue<>();
+        for (T value : values){
+            queue.insert(value);
         }
         return queue;
     }

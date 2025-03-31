@@ -75,16 +75,19 @@ public class L25 extends Main {
     }
 
     public static void main(String[] args) {
-        RealSet realSet = new RealSet();
-        realSet.insert(1);
-        realSet.insert(1, 2, 3, 4, -1, -2);
-        System.out.println(realSet);
-        RealSet realSet1 = clone(realSet);
-        System.out.println(realSet);
-        System.out.println(realSet1);
-//        realSet.remove(4);
-//        System.out.println(realSet);
+        Queue<Integer> q1 = buildQueue(8,4,9,7);
+        Queue<Integer> q2 = buildQueue(1,8,1,2);
+        Queue<Integer> q3 = buildQueue(3,1);
+        Queue<Integer> q4 = new Queue<>();
+        Queue<Integer> q5 = buildQueue(2,9,4,1);
 
+        BinNode<Queue<Integer>> root = new BinNode<>(q1);
+        root.setRight(new BinNode<>(q2));
+        root.getRight().setLeft(new BinNode<>(q3));
+        root.getRight().setRight(new BinNode<>(q4));
+        root.getRight().getRight().setLeft(new BinNode<>(q5));
+
+        System.out.println(q2A(root));
     }
 
 }
