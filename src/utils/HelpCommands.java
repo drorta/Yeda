@@ -646,6 +646,20 @@ public class HelpCommands {
         node.setValue(value);
     }
 
+    public static <T> Node<T> getLast(Node<T> node){
+        while (node.getNext() != null) {
+            node = node.getNext();
+        }
+        return node;
+    }
+
+    public static <T> void setByIndex(Node<T> node, T value, int index){
+        for (int i = 0; i < index - 1; i++) {
+            node = node.getNext();
+        }
+        node.setNext(new Node<>(value, node.getNext()));
+    }
+
     public static BinNode<Integer> buildBinNode(int n) {
         BinNode<Integer> root = new BinNode<Integer>((int) (Math.random() * 99) + 1);
         BinNode<Integer> bn = root;
