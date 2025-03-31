@@ -285,6 +285,14 @@ public class HelpCommands {
         return queue;
     }
 
+    public static <T> Queue<T> buildQueue(T... values) {
+        Queue<T> queue = new Queue<>();
+        for (T value : values){
+            queue.insert(value);
+        }
+        return queue;
+    }
+
     /**
      * @param queue
      * @return the length of the queue
@@ -477,6 +485,15 @@ public class HelpCommands {
         return max;
     }
 
+    public static double findMax(Node<Double> node, boolean idk) {
+        double max = node.getValue();
+        while (node.getNext() != null) {
+            max = Math.max(max, node.getNext().getValue());
+            node = node.getNext();
+        }
+        return max;
+    }
+
     /**
      * @param node the node
      * @return the length of the node
@@ -571,12 +588,12 @@ public class HelpCommands {
             node = node.getNext();
         }
         Node<T> p = node;
-        for (int i = 0; i < lenNodes(node); i++) {
-            if (p.getNext().getValue() == value) {
+        while (p.getNext() != null){
+            if (p.getNext().getValue().equals(value)) {
                 p.setNext(p.getNext().getNext());
-            } else {
-                p = p.getNext();
+                return node;
             }
+            p = p.getNext();
         }
         return node;
     }
@@ -590,6 +607,20 @@ public class HelpCommands {
         Node<T> ret = new Node<>(value);
         ret.setNext(node);
         return ret;
+    }
+
+    public static <T> void setLast(Node<T> node, T value){
+        while (node.getNext() != null) {
+            node = node.getNext();
+        }
+        node.setNext(new Node<>(value));
+    }
+
+    public static <T> T getLast(Node<T> node){
+        while (node.getNext() != null) {
+            node = node.getNext();
+        }
+        return node.getValue();
     }
 
     /**
