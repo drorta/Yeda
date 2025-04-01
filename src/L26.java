@@ -1,16 +1,15 @@
 import classes.Birth;
 import classes.School;
 import classes.Student;
+import utils.BinNode;
 import utils.Node;
-
-import java.util.Arrays;
 
 public class L26 extends Main {
 
-    public static Node<Student> getStudentsByMonth(School s, int month){
+    public static Node<Student> getStudentsByMonth(School s, int month) {
         Node<Student> ret = new Node<>(new Student("-1", new Birth(-1, -1, -1)));
         Node<Student> p = ret;
-        for (Node<Student> n : s.getAr()){
+        for (Node<Student> n : s.getAr()) {
             while (n != null) {
                 if (n.getValue().getBirthDay().getMonth() == month) {
                     p.setNext(new Node<>(n.getValue()));
@@ -22,16 +21,47 @@ public class L26 extends Main {
         return ret.getNext();
     }
 
-    public static Node<Student>[] ex3(School s){
+    public static Node<Student>[] ex3(School s) {
         Node<Student>[] ret = new Node[12];
-        int[] months = {1,2,3,4,5,6,7,8,9,10,11,12};
-        for (int m : months){
-            ret[m-1] = getStudentsByMonth(s, m);
+        int[] months = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
+        for (int m : months) {
+            ret[m - 1] = getStudentsByMonth(s, m);
         }
         return ret;
     }
 
+    public static <T> boolean isBalanced(BinNode<T> root) {
+        if (root == null) {
+            return true;
+        }
+        if (Math.abs(getTreeHeight(root.getRight()) - getTreeHeight(root.getLeft())) > 1) {
+            return false;
+        }
+        return isBalanced(root.getLeft()) && isBalanced(root.getRight());
+    }
+
     public static void main(String[] args) {
+        isBalancedCheck();
+    }
+
+    public static void isBalancedCheck() {
+        BinNode<Integer> root1 = buildTree(1);
+        BinNode<Integer> root2 = buildTree(1, 2, 3, 4);
+        BinNode<Integer> root3 = buildTree(1, 2, 3, 4, 5, 6);
+        BinNode<Integer> root4 = buildTree(1, 2, 3, 4, 5, 6, 7);
+
+        printMeTree(root1);
+        printMeTree(root2);
+        printMeTree(root3);
+        printMeTree(root4);
+
+        System.out.println(isBalanced(root1));
+        System.out.println(isBalanced(root2));
+        System.out.println(isBalanced(root3));
+        System.out.println(isBalanced(root4));
+    }
+
+    public static void ex3Check() {
         Node<Student> grade1 = buildNodes(
                 new Student("a", new Birth(1, 1, 1)),
                 new Student("b", new Birth(1, 2, 1)),
@@ -71,18 +101,18 @@ public class L26 extends Main {
 
         School s = new School(
                 new Node[]{
-                    grade1,
-                    grade2,
-                    grade3,
-                    grade4,
-                    grade5,
-                    grade6
+                        grade1,
+                        grade2,
+                        grade3,
+                        grade4,
+                        grade5,
+                        grade6
                 }
         );
 
         Node<Student>[] ex3 = ex3(s);
 
-        for (Node<Student> n : ex3){
+        for (Node<Student> n : ex3) {
             System.out.println(n);
         }
     }
