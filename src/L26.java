@@ -1,8 +1,10 @@
 import classes.Birth;
+import classes.Collec;
 import classes.School;
 import classes.Student;
 import utils.BinNode;
 import utils.Node;
+import utils.Queue;
 
 public class L26 extends Main {
 
@@ -41,7 +43,25 @@ public class L26 extends Main {
     }
 
     public static void main(String[] args) {
-        isBalancedCheck();
+    }
+
+    public static void checkCollec(){
+        Collec collec = new Collec();
+        System.out.println(collec.add(2));
+        System.out.println(collec.add(3));
+        System.out.println(collec.add(4));
+        System.out.println(collec.add(5));
+        System.out.println(collec.add(2));
+        System.out.println(collec.small());
+        Collec collec1 = new Collec(5);
+        System.out.println(collec1.add(4));
+        System.out.println(collec1.add(5));
+        System.out.println(collec1.add(6));
+        System.out.println(collec.smallest(collec1));
+        Collec collec2 = new Collec(1);
+        System.out.println(collec.smallest(collec2));
+
+
     }
 
     public static void isBalancedCheck() {
