@@ -285,6 +285,14 @@ public class HelpCommands {
         return queue;
     }
 
+    public static <T> Queue<T> buildQueue(T... values){
+        Queue<T> queue = new Queue<>();
+        for (T value : values){
+            queue.insert(value);
+        }
+        return queue;
+    }
+
     /**
      * @param queue
      * @return the length of the queue
